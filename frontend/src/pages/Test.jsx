@@ -2,13 +2,17 @@ import React, { useState,useEffect } from 'react'
 
 import { useNavigate } from 'react-router-dom';
 
-export const Test = ({data,setData}) => {
+export const Test = ({data,setData,curruser}) => {
 
   const [currQuestionIndex,setCurrQuestion]= useState(0);
   const [score,setScore]= useState(0);
   const navigate=useNavigate();
 
   useEffect(()=>{
+    if(!curruser){
+      navigate('/');
+      return;
+    }
     data.map((que)=>{
       return{...que,isVisited:false,selectedOption:""}
     })
@@ -69,8 +73,9 @@ export const Test = ({data,setData}) => {
     </div>
 
      
-   <div className= 'w-[25%] items-center justify-center border-2 rounded-xl flex flex-wrap bg-white h-[30rem] overflow-y-auto'>
+   <div className= 'w-[25%] border-2 rounded-xl bg-white h-[30rem] overflow-y-auto'>
         <h1 className='text-lg font-semibold text-center w-[100%] py-4'>Answer Status</h1>
+        <div className='flex flex-wrap justify-center'>
       {
         data.map((que,index)=>{
           return (
@@ -80,6 +85,7 @@ export const Test = ({data,setData}) => {
           )
         })
       }
+      </div>
 
 
    </div>

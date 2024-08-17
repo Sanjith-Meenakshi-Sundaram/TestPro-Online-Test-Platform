@@ -2,18 +2,22 @@ import React, { useState } from 'react'
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function Finish({data}) {
+function Finish({data,curruser}) {
     
     const [score,setScore]=useState({
       marked:0,
       correct:0,
     })
 
+    const navigate=useNavigate();
+
     useEffect(()=>{
+      if(!curruser){
+        navigate('/login');
+        return;
+      }
       calculate();
     },[]);
-
-    const navigate=useNavigate();
 
     const calculate=()=>{
        let marked=0;
@@ -27,7 +31,7 @@ function Finish({data}) {
 
   return (
     <>
-    <div className='w-[100%] h-[100vh] flex justify-center items-center '>
+    <div className='w-[100%] h-[100vh] flex justify-center mt-5 '>
     <div  className='flex flex-col justify-center items-center w-[55%] h-fit bg-zinc-200 p-10 rounded-xl'>
         <div className='flex flex-col justify-center items-center'>
              <img className='rounded-full w-[10rem]' src="https://t3.ftcdn.net/jpg/01/57/86/44/360_F_157864480_TFm1nQsUI1o8VLKg6SK6yV9P6tsK4TXN.jpg" alt="" />
@@ -46,7 +50,7 @@ function Finish({data}) {
                 </div>
                 <div className='border-2 rounded-lg bg-green-500 w-[30%] h-[6.5rem] p-2 text-centern flex flex-col justify-between items-center'>
                       <h1 className='text-lg mb-1 font-semibold'>Score</h1>
-                      <p className='text-2xl text-white font-semibold'>{score.correct/data.length*100}%</p>
+                      <p className='text-2xl text-white font-semibold'>{Math.floor(score.correct/data.length*100)}%</p>
                 </div>
         </div>
 

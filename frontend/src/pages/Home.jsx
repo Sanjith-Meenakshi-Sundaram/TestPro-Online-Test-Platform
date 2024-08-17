@@ -1,12 +1,19 @@
-import React, { useState } from 'react'
-import {NavLink} from 'react-router-dom'
-import TestCard from './TestCard'
+import React, { useEffect, useState } from 'react'
+import {NavLink, useNavigate} from 'react-router-dom'
+import TestCard from '../Components/TestCard'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faHouse, faBookmark, faSquarePollVertical,faLayerGroup, faCalendarDays, faCrown} from '@fortawesome/free-solid-svg-icons'
-import PreTestPopup from './PreTestPopup';
+import PreTestPopup from '../Components/PreTestPopup';
 
-function Home({testdata,startExam}) {
+function Home({testdata,startExam,curruser}) {
    const[examindex,setExamindex]=useState();
+   const nevigate=useNavigate();
+
+   useEffect(()=>{
+      if(!curruser){
+        nevigate("/login");
+      }
+   })
   return (<>
     <div className='flex'>
         <div className='w-[50rem]'>

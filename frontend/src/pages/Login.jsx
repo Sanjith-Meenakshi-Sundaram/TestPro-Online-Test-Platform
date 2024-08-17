@@ -45,7 +45,7 @@ function Login({setCurruser}) {
                       <input className='border-2 rounded mt-2 mb-3 p-2'  type="text" value={username} placeholder='enter your username' onChange={(e)=>{setUser(e.target.value)}} required />
                       <label className='text-lg font-semibold' htmlFor="password">Password</label>
                       <input className='border-2 rounded-lg mt-2 mb-3 p-2' type="password" value={password} placeholder='enter password' onChange={(e)=>setPass(e.target.value)} required />
-                      <button className='px-4 py-2 rounded bg-red-600 font-semibold text-zinc-100 mx-2 my-4'>Signup</button>
+                      <button className='px-4 py-2 rounded bg-red-600 font-semibold text-zinc-100 mx-2 my-4'>Login</button>
                 </form>
                 <p className='text-lg font-500 text-center'>Already have an account? <NavLink className="text-blue-500" to="/register">Signup</NavLink></p>
            </div>

@@ -6,7 +6,7 @@ function TestCard({test,index,setExamindex}) {
   }
   return (
     <div className='w-[15rem] h-[20rem] border-2 rounded overflow-hidden flex flex-col'>
-           <div className='w-[15rem] h-[18rem]'>
+           <div className='w-[15rem] h-[10rem]'>
                 <img className='w-[100%] h-[100%] rounded' src={test.image} alt="" />
            </div>
            <div className='px-2 pb-2'>

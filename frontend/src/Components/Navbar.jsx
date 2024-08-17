@@ -22,7 +22,7 @@ function Navbar({curruser, setCurruser}) {
                       <h1>TestPro</h1>
                  </div>
                  <div>
-                      <h1>Home</h1>
+                      <NavLink to="/">Home</NavLink>
                  </div>
            </div>
            <div className='flex justify-center items-center gap-3'>
