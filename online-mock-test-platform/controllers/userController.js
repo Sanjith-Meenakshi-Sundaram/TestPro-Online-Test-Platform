@@ -30,10 +30,10 @@ exports.login = async (req, res) => {
   }
 };
 
-// exports.getCars = async (req, res) => {
+// exports.getTests = async (req, res) => {
 //   try {
-//     const cars = await Car.find({});
-//     res.send(cars);
+//     const tests = await Car.find({});
+//     res.send(tests);
 //   } catch (error) {
 //     res.status(500).send();
 //   }

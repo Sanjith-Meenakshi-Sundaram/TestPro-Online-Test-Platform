@@ -12,12 +12,13 @@ import Admin from "./Components/Admin"
 
 function App() {
 
-    const [data,setData]=useState([...testdata[1].questions]);
+    const [data,setData]=useState([...testdata[0].questions]);
     const [curruser,setCurruser]=useState();
     const navigate=useNavigate();
+    const [testdetails,setDetails]=useState();
 
     const startExam=(index)=>{
-      setData([...testdata[index].questions]);
+      setData([...testdata[index-1].questions]);
       navigate('/test');
     }
 
@@ -42,4 +43,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
