@@ -1,21 +1,28 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState,useEffect,useRef } from 'react'
+import Timmer from "../Components/Timmer"
 
 import { useNavigate } from 'react-router-dom';
 
-export const Test = ({data,setData,curruser}) => {
-
+export const Test = ({setisTest,exitfull,fullscreen,data,setData,curruser}) => {
+  
   const [currQuestionIndex,setCurrQuestion]= useState(0);
   const [score,setScore]= useState(0);
   const navigate=useNavigate();
-
   useEffect(()=>{
+    fullscreen();
+    setisTest(true);
     if(!curruser){
       navigate('/');
       return;
     }
-    data.map((que)=>{
+    setData(data.map((que)=>{
       return{...que,isVisited:false,selectedOption:""}
-    })
+    }));
+    return(()=>{
+      exitfull();
+      setisTest(false);
+     // handelFinish();
+    });
   },[])
 
   const handelNext=(index)=>{
@@ -44,10 +51,11 @@ export const Test = ({data,setData,curruser}) => {
   }
 
   return (<>
-   <div className='bg-zinc-200 flex gap-10 justify-center p-10'>
+   <div className='bg-zinc-200 flex gap-10 justify-center p-10 h-[85vh] items-center'>
     <div className='w-[50%]' >
       <div className='py-5 h-[5rem]'>
          <h1 className='text-2xl'>Java Quiz</h1>
+         <Timmer Finish={handelFinish} minuts={data.length}/>
       </div>
       <div>
       <h1 className='text-xl mb-5'>{`${currQuestionIndex+1}.  ${data[currQuestionIndex].question}`}</h1>
@@ -73,7 +81,7 @@ export const Test = ({data,setData,curruser}) => {
     </div>
 
      
-   <div className= 'w-[25%] border-2 rounded-xl bg-white h-[30rem] overflow-y-auto'>
+   <div className= 'w-[25%] border-2 rounded-xl bg-white h-[35rem] overflow-y-auto'>
         <h1 className='text-lg font-semibold text-center w-[100%] py-4'>Answer Status</h1>
         <div className='flex flex-wrap justify-center'>
       {
