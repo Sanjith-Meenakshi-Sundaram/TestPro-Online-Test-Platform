@@ -29,7 +29,7 @@ function Home({testdata,startExam,curruser}) {
         </div>
         </div>
         <div className='flex justify-center flex-wrap gap-5 p-5'>
-            {examindex&& <div className='fixed top-[5rem] flex justify-center top-[4rem] bg-zinc-100'>
+            {examindex&& <div className='fixed top-[3rem] flex justify-center top-[4rem] bg-zinc-100'>
               <PreTestPopup setExamindex={setExamindex} startExam={startExam} examindex={examindex} />
              </div>}
             <h1 className='text-center w-[80%] mx-4 py-4 border rounded-lg text-zinc-100 font-semibold bg-green-500 text-xl flex gap-2 justify-center items-center'> <FontAwesomeIcon icon={faCrown} /><p>Your Path to Success, One Test at a Time.</p></h1>

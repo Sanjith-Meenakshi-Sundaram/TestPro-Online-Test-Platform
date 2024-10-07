@@ -9,7 +9,7 @@ const PreTestPopup = ({setExamindex,examindex,startExam}) => {
     }
     
   return (
-          <div className='w-[50rem] rounded bg-zinc-200 px-10 py-4'>
+          <div className='w-[70rem] h-[100vh] rounded bg-zinc-200 px-10 py-4'>
               <h1 className='text-xl font-semibold text-center pb-2'>Get Ready to Shine!</h1>
                <div className='border-t-2 border-zinc-600 p-2'>
                     <h1 className='text-lg font-semibold'>Before You Begin</h1>
