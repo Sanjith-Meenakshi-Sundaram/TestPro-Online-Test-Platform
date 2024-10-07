@@ -1,8 +1,11 @@
 import React from 'react'
 
-function TestCard({test,index,setExamindex}) {
+function TestCard({test,index,setExamindex,setDetails}) {
   const handelStart=()=>{
-    setExamindex(index+1)
+    setExamindex(index+1);
+    setDetails((pre)=>{
+      return  {...pre,title:test.title,ques:test.questions.length,time:Math.floor(test.questions.length/2)}
+    })
   }
   return (
     <div className='w-[15rem] h-[20rem] border-2 rounded overflow-hidden flex flex-col'>

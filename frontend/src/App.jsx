@@ -16,7 +16,12 @@ function App() {
     const [data,setData]=useState([...testdata[0].questions]);
     const [curruser,setCurruser]=useState();
     const navigate=useNavigate();
-    const [testdetails,setDetails]=useState();
+    const [testdetails,setDetails]=useState({
+      ques:0,
+      time:0,
+      category: "Tech",
+      title:""
+    });
     const [isTest,setisTest]=useState(false);
 
     const startExam=(index)=>{
@@ -25,6 +30,9 @@ function App() {
         return;
       }
       setData([...testdata[index-1].questions]);
+      // setDetails((pre)=>{
+      //   return {...pre,ques:testdata[index-1].questions.length,time:testdata[index-1].questions.length/2,title:testdata[index-1].title}
+      // })
       navigate('/test');
     }
 
@@ -60,11 +68,11 @@ function App() {
        }
       <Routes>
           
-        <Route path="/" element={<Home testdata={testdata} startExam={startExam} curruser={curruser}/>}/>
+        <Route path="/" element={<Home testdata={testdata} startExam={startExam} curruser={curruser} testdetails={testdetails} setDetails={setDetails}/>}/>
         <Route path="/admin" element={<Admin/>}/>
         <Route path="/login" element={<Login setCurruser={setCurruser}/>}/>
         <Route path="/register" element={<Register setCurruser={setCurruser}/>}/>
-        <Route path="/test" element={<Test setisTest={setisTest} exitfull={handleExitFullscreen} fullscreen={handleFullscreen} data={data} setData={setData} curruser={curruser}/>}/>
+        <Route path="/test" element={<Test setisTest={setisTest} exitfull={handleExitFullscreen} fullscreen={handleFullscreen} data={data} setData={setData} curruser={curruser} testdetails={testdetails}/>}/>
         <Route path="/result" element={<Finish data={data} curruser={curruser}/>}/>
         <Route path="/review" element={<Review data={data}/>}/>
 

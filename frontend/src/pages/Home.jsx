@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faHouse, faBookmark, faSquarePollVertical,faLayerGroup, faCalendarDays, faCrown} from '@fortawesome/free-solid-svg-icons'
 import PreTestPopup from '../Components/PreTestPopup';
 
-function Home({testdata,startExam,curruser}) {
+function Home({testdata,startExam,curruser,testdetails,setDetails}) {
    const[examindex,setExamindex]=useState();
    const nevigate=useNavigate();
 
@@ -14,6 +14,10 @@ function Home({testdata,startExam,curruser}) {
         nevigate("/login");
       }
    })
+
+   const handelPretest=()=>{
+       
+   }
   return (<>
     <div className='flex'>
         <div className='w-[50rem]'>
@@ -29,13 +33,13 @@ function Home({testdata,startExam,curruser}) {
         </div>
         </div>
         <div className='flex justify-center flex-wrap gap-5 p-5'>
-            {examindex&& <div className='fixed top-[3rem] flex justify-center top-[4rem] bg-zinc-100'>
-              <PreTestPopup setExamindex={setExamindex} startExam={startExam} examindex={examindex} />
+            {examindex&& <div className='w-full h-full fixed top-[0] left-[0] flex justify-center items-center bg-zinc-100'>
+              <PreTestPopup setExamindex={setExamindex} startExam={startExam} examindex={examindex} testdetails={testdetails} />
              </div>}
             <h1 className='text-center w-[80%] mx-4 py-4 border rounded-lg text-zinc-100 font-semibold bg-green-500 text-xl flex gap-2 justify-center items-center'> <FontAwesomeIcon icon={faCrown} /><p>Your Path to Success, One Test at a Time.</p></h1>
                  {
                   testdata.map((test,index)=>{
-                    return <TestCard key={index} index={index} test={test} setExamindex={setExamindex}/>
+                    return <TestCard key={index} index={index} test={test} setExamindex={setExamindex} setDetails={setDetails}/>
                   })
                  }
         </div>

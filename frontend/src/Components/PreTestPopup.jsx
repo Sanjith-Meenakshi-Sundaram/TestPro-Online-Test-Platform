@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const PreTestPopup = ({setExamindex,examindex,startExam}) => {
+const PreTestPopup = ({setExamindex,examindex,startExam,testdetails}) => {
 
     const navigate=useNavigate()
     const handelStart=()=>{
@@ -9,7 +9,7 @@ const PreTestPopup = ({setExamindex,examindex,startExam}) => {
     }
     
   return (
-          <div className='w-[70rem] h-[100vh] rounded bg-zinc-200 px-10 py-4'>
+          <div className='w-full h-full overflow-auto rounded bg-zinc-200 px-10 py-4'>
               <h1 className='text-xl font-semibold text-center pb-2'>Get Ready to Shine!</h1>
                <div className='border-t-2 border-zinc-600 p-2'>
                     <h1 className='text-lg font-semibold'>Before You Begin</h1>
@@ -23,9 +23,10 @@ const PreTestPopup = ({setExamindex,examindex,startExam}) => {
                <div className='border-b-2 border-zinc-600 p-2'>
                     <h1 className='text-lg font-semibold'>Test Details:</h1>
                     <ul className='list-disc gap-2 flex flex-col'>
-                        <li>Total Questions: [X Questions]</li>
-                        <li>Time Allotted: [X Minutes]</li>
-                        <li>Test Category: [Test Category Name]</li>
+                        <li>Test: {testdetails.title}</li>
+                        <li>Total Questions: {testdetails.ques}</li>
+                        <li>Time Allotted: {testdetails.time}</li>
+                        <li>Test Category: {testdetails.category}</li>
                     </ul>
                </div>
                <div className='border-b-2 border-zinc-600 p-2 mb-3'>

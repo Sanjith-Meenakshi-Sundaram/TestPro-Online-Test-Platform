@@ -3,7 +3,7 @@ import Timmer from "../Components/Timmer"
 
 import { useNavigate } from 'react-router-dom';
 
-export const Test = ({setisTest,exitfull,fullscreen,data,setData,curruser}) => {
+export const Test = ({setisTest,exitfull,fullscreen,data,setData,curruser,testdetails}) => {
   
   const [currQuestionIndex,setCurrQuestion]= useState(0);
   const [score,setScore]= useState(0);
@@ -53,9 +53,9 @@ export const Test = ({setisTest,exitfull,fullscreen,data,setData,curruser}) => {
   return (<>
    <div className='bg-zinc-200 flex gap-10 justify-center p-10 h-[85vh] items-center'>
     <div className='w-[50%]' >
-      <div className='py-5 h-[5rem]'>
-         <h1 className='text-2xl'>Java Quiz</h1>
-         <Timmer Finish={handelFinish} minuts={data.length}/>
+      <div className='py-5 mb-5 border-b-2 border-zinc-500 h-[5rem] flex justify-between'>
+         <h1 className='text-3xl'>{testdetails.title}</h1>
+         <Timmer Finish={handelFinish} minuts={Math.floor(data.length/2)}/>
       </div>
       <div>
       <h1 className='text-xl mb-5'>{`${currQuestionIndex+1}.  ${data[currQuestionIndex].question}`}</h1>
@@ -74,7 +74,8 @@ export const Test = ({setisTest,exitfull,fullscreen,data,setData,curruser}) => {
 
 <button className={`px-5 py-2 rounded bg-zinc-700 font-semibold text-zinc-100 mx-2 ${currQuestionIndex==0?"hidden":""}`} onClick={()=>{handelNext(currQuestionIndex-1)}}>prev</button>
 <button className={`px-5 py-2 rounded bg-blue-600 font-semibold text-zinc-100 mx-2 ${currQuestionIndex==data.length-1?"hidden":""}`} onClick={()=>{handelNext(currQuestionIndex+1)}}>Next</button>
-<button className={`px-4 py-2 rounded bg-red-600 font-semibold text-zinc-100 mx-2 ${currQuestionIndex!=data.length-1?"hidden":""}`} onClick={()=>{handelFinish()}}>Finish</button>
+<button className={`px-4 py-2 rounded bg-green-600 font-semibold text-zinc-100 mx-2 ${currQuestionIndex!=data.length-1?"hidden":""}`} onClick={()=>{handelFinish()}}>submit and finish</button>
+<button className={`px-4 py-2 rounded bg-red-600 font-semibold text-zinc-100 mx-2`} onClick={()=>{handelFinish()}}>Finish</button>
 
 </div>
       </div>
