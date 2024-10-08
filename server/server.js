@@ -10,7 +10,15 @@ const app = express();
 connectDB();
 
 // Middleware
-app.use(cors());
+
+app.use(cors({
+    origin: 'https://testpro-online-test-platform.onrender.com', // Allow only the local frontend during development
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Define allowed HTTP methods if needed
+    credentials: true // Set to true if your frontend sends credentials (cookies, etc.)
+}));
+
+
+//app.use(cors());
 app.use(express.json());
 
 // Routes
