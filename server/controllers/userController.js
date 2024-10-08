@@ -32,5 +32,5 @@ exports.login = async (req, res) => {
 
 exports.welcome=async (req,res)=>{
   console.log(User.find());
-  res.send("welcome");
+  res.send(User.find());
 };
