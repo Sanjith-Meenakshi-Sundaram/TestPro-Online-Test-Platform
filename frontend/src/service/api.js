@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const api=axios.create({
-    baseURL: 'https://testpro-server-x05k.onrender.com/api/'
+    baseURL: 'https://test-pro-online-test-platform.vercel.app/api/'
     // headers: {'Authorization': `Bearer ${localStorage.getItem('token')}`}
 });
 
