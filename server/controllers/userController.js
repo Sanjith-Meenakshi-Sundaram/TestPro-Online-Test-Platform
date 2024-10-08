@@ -30,11 +30,6 @@ exports.login = async (req, res) => {
   }
 };
 
-// exports.getTests = async (req, res) => {
-//   try {
-//     const tests = await Car.find({});
-//     res.send(tests);
-//   } catch (error) {
-//     res.status(500).send();
-//   }
-// };
+exports.welcome=async (req,res)=>{
+  res.send("welcome");
+};
