@@ -8,6 +8,7 @@ function Login({setCurruser}) {
     let [username,setUser]=useState("");
     let [password,setPass]=useState("");
     let [loader,setLoader]=useState(false)
+    let [LoginError,setError]=useState(false);
     const navigate=useNavigate();
 
     const handelSubmit=(e)=>{
@@ -33,6 +34,7 @@ function Login({setCurruser}) {
       })
       .catch((err)=>{
         setLoader(false);
+        setError(true);
         console.log("login failed");
       })
     }
@@ -47,6 +49,7 @@ function Login({setCurruser}) {
            </div>
            <div className='flex py-10 px-5 w-[35%] flex-col border-4 border-zinc-600 rounded-3xl m-8 bg-white'>
                 <h1 className='text-center text-2xl mt-2 font-semibold '>Login</h1>
+                {LoginError&&<h1 className='text-center text-lg mt-2 font-semibold text-red-600 '>Retry: Wrong Username or PassWord</h1>}
                 <form className='flex flex-col justify-center m-2 mb-2 p-10' onSubmit={handelSubmit}>
                 <p className='text lg font-semibold text-center text-green-500'>For Demo username: <span className='font-semibold text-red-500'>surjeet08</span> and password: <span className='font-semibold text-red-500'>surjeet1234</span> Or Register as a New User</p>
                       <label className='text-lg font-semibold' htmlFor="username">User Name</label>

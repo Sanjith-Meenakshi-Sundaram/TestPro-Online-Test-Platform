@@ -2,23 +2,27 @@ import React, { useState } from 'react'
 import api from '../service/api'
 import image from "../assets/images/4119036.jpg"
 import { NavLink,useNavigate } from 'react-router-dom'
+import Buffer from "../Components/Buffer";
 
 const Register = ({setCurruser}) => {
 
     let [username,setUser]=useState("");
     let [email,setEmail]=useState("");
     let [password,setPass]=useState("");
+    let [loader,setLoader]=useState(false);
+    let [LoginError,setError]=useState(false);
 
     const navigate=useNavigate();
 
     const handelSubmit=(e)=>{
         e.preventDefault();
+        setLoader(true);
         api.post('/user/register',{username,email,password})
         .then((res)=>{
           const {token,user}=res.data;
           localStorage.setItem('token',token)
           setCurruser(user);
-          
+          setLoader(false);
           if(user.isAdmin){
             console.log("admin login");
             navigate('/')
@@ -33,17 +37,22 @@ const Register = ({setCurruser}) => {
         setEmail("")
       })
       .catch((err)=>{
+        setLoader(false);
         console.log("login failed");
       })
     }
 
   return (
     <div className='flex justify-center items-center bg-zinc-200'>
+           {loader&&<div className="h-[100vh] w-[100%] fixed top-0 flex justify-center items-center  bg-zinc-600 bg-opacity-50">
+               <Buffer/>
+           </div>}
            <div className='w-[50%] p-10 '>
                   <img className='w-[80%] rounded-2xl' src={image} alt="" />
            </div>
            <div className='flex py-5 px-5 w-[35%] flex-col border-4 border-zinc-600 rounded-3xl m-8 bg-white'>
                 <h1 className='text-center text-2xl mt-2 font-semibold '>Register</h1>
+                {LoginError&&<h1 className='text-center text-lg mt-2 font-semibold text-red-600 '>Retry: User Exist Already</h1>}
                 <form className='flex flex-col justify-center m-4 mb-2 p-10' onSubmit={handelSubmit}>
                       <label className='text-lg font-semibold' htmlFor="username">User Name</label>
                       <input className='border-2 rounded mt-2 mb-3 p-2'  type="text" value={username} placeholder='enter your username' onChange={(e)=>{setUser(e.target.value)}} required />
