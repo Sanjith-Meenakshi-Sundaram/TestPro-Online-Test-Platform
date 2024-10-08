@@ -10,13 +10,16 @@ const app = express();
 connectDB();
 
 // Middleware
-
+// CORS configuration (Allow all origins)
 app.use(cors({
-    origin: 'https://testpro-online-test-platform.onrender.com', // Allow only the local frontend during development
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Define allowed HTTP methods if needed
-    credentials: true // Set to true if your frontend sends credentials (cookies, etc.)
+    origin: true, // Allow all origins
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
+    credentials: true, // Allow credentials (cookies, etc.)
+    allowedHeaders: ['Content-Type', 'Authorization'], // Necessary headers
 }));
 
+// Preflight response for OPTIONS requests (required for CORS)
+app.options('*', cors());
 
 //app.use(cors());
 app.use(express.json());
