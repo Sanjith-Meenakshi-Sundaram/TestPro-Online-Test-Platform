@@ -78,7 +78,9 @@ function App() {
 
       </Routes>
       
-        <Footer/>
+      {
+        !isTest&&<Footer/>
+       }
         </div>
       </> 
   )

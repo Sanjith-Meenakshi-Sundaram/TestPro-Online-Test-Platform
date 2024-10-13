@@ -25,7 +25,7 @@ function Navbar({curruser, setCurruser}) {
                       <NavLink to="/">Home</NavLink>
                  </div>
            </div>
-           <div className='flex justify-center items-center gap-3'>
+           <div className='relative flex justify-center items-center gap-3'>
                 <NavLink to='/login' className={`px-4 py-2 rounded bg-green-600 text-zinc-100 mx-2 ${curruser?"hidden":""}`}>Login</NavLink>
                 <NavLink to='/register' className={`px-4 py-2 rounded bg-zinc-600 text-zinc-100 mx-2 ${curruser?"hidden":""}`}>SignUp</NavLink>
                 <button className={`px-4 py-2 rounded bg-red-600 text-zinc-100 mx-2 ${!curruser?"hidden":""}`} onClick={handelLogout}>LogOut</button>
@@ -33,7 +33,8 @@ function Navbar({curruser, setCurruser}) {
 
                 {
                     flag&&
-                    <div className='fixed py-5 px-4 rounded-lg flex gap-4 flex-col justify-center items-center top-[4rem] right-[2rem] bg-zinc-200'>
+                    <div className='fixed h-[100vh] w-[100%] bg-transparent top-0 right-0 z-100' onClick={()=>{setflag(false)}}>
+                    <div className='absolute py-5 px-4 rounded-lg flex gap-4 flex-col justify-center items-center top-[4rem] right-[2rem] bg-zinc-200'>
                            <h1 className='text-center text-2xl font-semibold'>Profile</h1>
                            <FontAwesomeIcon icon={faUser} />
                            <p>Hi {curruser?curruser.username:""}</p>
@@ -41,6 +42,7 @@ function Navbar({curruser, setCurruser}) {
                            <button className={`px-4 py-2 rounded-xl bg-red-600 text-zinc-100 mx-2 ${!curruser?"hidden":""}`} onClick={handelLogout}>LogOut</button>
                            <button className={`px-4 py-2 rounded-xl bg-blue-600 text-zinc-100 mx-2 ${!curruser?"hidden":""}`} onClick={handelLogout}>Edit Profile</button>
                            </div>
+                    </div>
                     </div>
                 }
 
