@@ -10,6 +10,7 @@ import Login from "./pages/Login"
 import Register from "./pages/Register"
 import Admin from "./pages/Admin"
 import Review from "./pages/Review"
+import Ho_me from "./pages/Ho_me"
 
 function App() {
 
@@ -26,7 +27,7 @@ function App() {
 
     const startExam=(index)=>{
       if(!curruser){
-        navigate('/login');
+       navigate('/login');
         return;
       }
       setData([...testdata[index-1].questions]);
@@ -64,10 +65,10 @@ function App() {
   return (<>
      <div ref={elementRef} className="bg-white">
        {
-        !isTest&&<Navbar curruser={curruser} setCurruser={setCurruser}/>
+         !isTest&&<Navbar curruser={curruser} setCurruser={setCurruser}/>
        }
       <Routes>
-          
+        <Route path="/home" element={<Ho_me testdata={testdata} startExam={startExam} curruser={curruser} testdetails={testdetails} setDetails={setDetails}/>}/>
         <Route path="/" element={<Home testdata={testdata} startExam={startExam} curruser={curruser} testdetails={testdetails} setDetails={setDetails}/>}/>
         <Route path="/admin" element={<Admin/>}/>
         <Route path="/login" element={<Login setCurruser={setCurruser}/>}/>
@@ -79,7 +80,7 @@ function App() {
       </Routes>
       
       {
-        !isTest&&<Footer/>
+       !isTest&&<Footer/>
        }
         </div>
       </> 

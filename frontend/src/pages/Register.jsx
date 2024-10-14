@@ -44,14 +44,14 @@ const Register = ({setCurruser}) => {
     }
 
   return (
-    <div className='flex justify-center items-center bg-zinc-200'>
+    <div className='flex justify-center items-center bg-[#F3F3F4]'>
            {loader&&<div className="h-[100vh] w-[100%] fixed top-0 flex justify-center items-center  bg-zinc-600 bg-opacity-50">
                <Buffer/>
            </div>}
            <div className='w-[50%] p-10 '>
-                  <img className='w-[80%] rounded-2xl' src={image} alt="" />
+                  <img className='w-[80%] rounded-lg shadow-lg' src={image} alt="" />
            </div>
-           <div className='flex py-5 px-5 w-[35%] flex-col border-2 border-zinc-600 rounded-3xl m-8 bg-white'>
+           <div className='flex py-5 px-5 w-[35%] flex-col rounded-lg shadow-lg m-8 bg-white'>
                 <h1 className='text-center text-2xl mt-2 font-semibold '>Register</h1>
                 {LoginError&&<h1 className='text-center text-lg mt-2 font-semibold text-red-600 '>Username Exist Already Choose Different</h1>}
                 <form className='flex flex-col justify-center m-4 mb-2 p-10 pt-5' onSubmit={handelSubmit}>
@@ -61,9 +61,9 @@ const Register = ({setCurruser}) => {
                       <input className='border-2 rounded-lg mt-2 mb-3 p-2' type="email" value={email} placeholder='enter your email' onChange={(e)=>setEmail(e.target.value)} required />
                       <label className='text-lg font-semibold' htmlFor="password">Password</label> 
                       <input className='border-2 rounded-lg mt-2 mb-3 p-2' type="password" value={password} placeholder='enter password' onChange={(e)=>setPass(e.target.value)} required />
-                      <button className='px-4 py-2 rounded bg-red-600 font-semibold text-zinc-100 mx-2 my-4'>Signup</button>
+                      <button className='px-5 py-2 rounded-lg bg-[#01b4dc] font-semibold text-zinc-100 mt-2'>Signup</button>
                 </form>
-                <p className='text-lg font-500 text-center'>Already have an account? <NavLink className="text-blue-500" to="/login">login</NavLink></p>
+                <p className='font-semibold font-500 text-center'>Already have an account? <NavLink className="text-[#01b4dc]" to="/login">login</NavLink></p>
            </div>
     </div>
   )
