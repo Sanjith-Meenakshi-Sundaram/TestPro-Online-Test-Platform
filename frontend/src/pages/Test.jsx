@@ -9,7 +9,6 @@ export const Test = ({setisTest,exitfull,fullscreen,data,setData,curruser,testde
   
   const [currQuestionIndex,setCurrQuestion]= useState(0);
   const [score,setScore]= useState(0);
-  const [isSubmiting,setisSubmiting]=useState(false);
   const navigate=useNavigate();
   useEffect(()=>{
     fullscreen();
@@ -22,13 +21,6 @@ export const Test = ({setisTest,exitfull,fullscreen,data,setData,curruser,testde
       return{...que,isVisited:false,selectedOption:"",markforreview:false}
     }));
     return(()=>{
-      if(!isSubmiting){
-        const confirmed = window.confirm('You are going to end the test. Are you sure you want to leave?');
-        if (!confirmed) {
-          navigate('/test');
-         return;
-        }
-      }
       exitfull();
       setisTest(false);
      // handelFinish();
@@ -70,7 +62,6 @@ export const Test = ({setisTest,exitfull,fullscreen,data,setData,curruser,testde
 
   const handelFinish=()=>{
     console.log("submitted");
-    setisSubmiting(true);
     navigate('/result',{replace:true});
   }
 
