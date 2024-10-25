@@ -13,7 +13,7 @@ function Navbar({curruser, setCurruser}) {
         setCurruser(null);
         localStorage.removeItem('token');
         setflag(false);
-        navigate('/login');
+        navigate('/login',{});
      }
   return (
     <div className='flex justify-between items-center px-12 h-[5rem] text-xl sticky top-0 bg-white z-[100]'>

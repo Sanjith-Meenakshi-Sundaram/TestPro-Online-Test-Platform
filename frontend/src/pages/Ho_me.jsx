@@ -38,7 +38,7 @@ function Ho_me(){
        <div className="w-[73%] h-[100%] ps-10 flex flex-col gap-5">
                   <div className="w-[100%] p-7 pb-4 rounded-lg bg-white">
                        <p className="text-lg border-b-2 border-[#B5E3F1] font-semibold text-zinc-600">List of Tests Taken</p>
-                        <div className={`w-[100%] flex gap-3 overflow-hidden pt-5 ${showmore1?"flex-wrap":""}`}>
+                        <div className={`w-[100%] flex gap-3 overflow-x-auto pt-5 ${showmore1?"flex-wrap":""}`}>
                         <div className="w-[15rem]"><Profile_test_card/></div>
                         <div className="w-[15rem]"><Profile_test_card/></div>
                         <div className="w-[15rem]"><Profile_test_card/></div>
@@ -52,7 +52,7 @@ function Ho_me(){
                   </div>
                   <div className="w-[100%] p-7 pb-4 rounded-lg bg-white">
                        <p className="text-lg border-b-2 border-[#B5E3F1] font-semibold text-zinc-600">Upcoming or Pending Tests</p>
-                        <div className={`w-[100%] flex gap-3 overflow-hidden pt-5 ${showmore2?"flex-wrap":""}`}>
+                        <div className={`w-[100%] flex gap-3 overflow-x-auto pt-5 ${showmore2?"flex-wrap":""}`}>
                         <div className="w-[15rem]"><Profile_test_card/></div>
                         <div className="w-[15rem]"><Profile_test_card/></div>
                         <div className="w-[15rem]"><Profile_test_card/></div>
