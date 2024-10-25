@@ -26,7 +26,7 @@ function Login({setCurruser}) {
           }
           else{
             console.log("regular user login");
-            navigate('/')
+            navigate('/',{replace:true});
           }
         console.log("Login Successful");
         setUser("");
@@ -58,7 +58,7 @@ function Login({setCurruser}) {
                       <input className='border-2 rounded-lg mt-2 mb-3 p-2' type="password" value={password} placeholder='enter password' onChange={(e)=>setPass(e.target.value)} required />
                       <button className='px-5 py-2 rounded-lg bg-[#01b4dc] font-semibold text-zinc-100 mt-2'>Login</button>
                 </form>
-                <p className='font-semibold font-500 text-center'>Already have an account? <NavLink className="text-[#01b4dc]" to="/register">Signup</NavLink></p>
+                <p className='font-semibold font-500 text-center'>Already have an account? <button className="text-[#01b4dc]" onClick={()=>{navigate("/register",{replace:true})}}>Signup</button></p>
            </div>
     </div>
   )

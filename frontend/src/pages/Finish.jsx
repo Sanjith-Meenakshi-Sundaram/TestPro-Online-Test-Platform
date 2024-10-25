@@ -56,8 +56,8 @@ function Finish({data,curruser}) {
 
         <div className='flex justify-end items-center w-[100%] mt-5'>
 
-               <button className='px-4 py-2 rounded border-2 border-[#01b4dc] font-semibold mx-2'onClick={()=>{navigate('/review')}}>Review Your Answers</button>
-               <button className='px-4 py-2 rounded bg-[#01b4dc] font-semibold text-zinc-100 mx-2' onClick={()=>{navigate('/')}}>Explore More Tests</button>
+               <button className='px-4 py-2 rounded border-2 border-[#01b4dc] font-semibold mx-2'onClick={()=>{navigate('/review',{replace:true})}}>Review Your Answers</button>
+               <button className='px-4 py-2 rounded bg-[#01b4dc] font-semibold text-zinc-100 mx-2' onClick={()=>{navigate('/',{replace:true})}}>Explore More Tests</button>
 
         </div>
     </div>
@@ -66,4 +66,4 @@ function Finish({data,curruser}) {
   )
 }
 
-export default Finish
+export default Finish;

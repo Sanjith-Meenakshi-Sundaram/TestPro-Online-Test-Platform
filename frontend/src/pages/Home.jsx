@@ -32,16 +32,16 @@ function Home({testdata,startExam,curruser,testdetails,setDetails}) {
              <div className='text-sm font-medium text-zinc-800 flex flex-col gap-1'>
                 <p className='font-semibold text-sm text-zinc-700 mb-1 cursor-pointer'>Difficulty Levels</p>
                 <div >
-                <input type="radio" name='category' id='cat1'/>
-                <label htmlFor="cat1" className='ms-2 cursor-pointer'>Easy</label>
+                <input type="checkbox" name='easy' id='easy'/>
+                <label htmlFor="easy" className='ms-2 cursor-pointer'>Easy</label>
                 </div>
                 <div>
-                <input type="radio" name='category' id='cat1'/>
-                <label htmlFor="cat1" className='ms-2 cursor-pointer'>Medium</label>
+                <input type="checkbox" name='medium' id='medium'/>
+                <label htmlFor="medium" className='ms-2 cursor-pointer'>Medium</label>
                 </div>
                 <div>
-                <input type="radio" name='category' id='cat1'/>
-                <label htmlFor="cat1" className='ms-2 cursor-pointer'>Hard</label>
+                <input type="checkbox" name='hard' id='hard'/>
+                <label htmlFor="har" className='ms-2 cursor-pointer'>Advance</label>
                 </div>
              </div>
              <div className='text-sm font-medium text-zinc-800'>
@@ -66,7 +66,7 @@ function Home({testdata,startExam,curruser,testdetails,setDetails}) {
                  </select>
              </div >
              <div className='text-sm font-medium text-zinc-800'>
-              <label className='font-semibold text-sm cursor-pointer' htmlFor="duration">{"Duration (in minuts)"}</label> <br />
+              <label className='font-semibold text-sm cursor-pointer' htmlFor="duration">{"Duration (in minutes)"}</label> <br />
               <input className='w-[100%] cursor-pointer' type="range" min="10" max="60" step="10" name='duration' id='duration' />
               <div className='text-sm font-medium text-zinc-800 flex justify-between'>
                    <p>10</p>
@@ -80,16 +80,16 @@ function Home({testdata,startExam,curruser,testdetails,setDetails}) {
              <div className='text-sm font-medium text-zinc-800 flex flex-col gap-1'>
                 <p className='font-semibold text-sm text-zinc-700 mb-1 cursor-pointer'>Number of Questions</p>
                 <div >
-                <input type="radio" name='category' id='cat1'/>
-                <label htmlFor="cat1" className='ms-2 cursor-pointer'>Less than 20 questions</label>
+                <input type="radio" name='q_count' id='q_count1'/>
+                <label htmlFor="q_count1" className='ms-2 cursor-pointer'>Less than 20 questions</label>
                 </div>
                 <div>
-                <input type="radio" name='category' id='cat1'/>
-                <label htmlFor="cat1" className='ms-2 cursor-pointer'>20-30 questions</label>
+                <input type="radio" name='q_count' id='q_count2'/>
+                <label htmlFor="q_count2" className='ms-2 cursor-pointer'>20-30 questions</label>
                 </div>
                 <div>
-                <input type="radio" name='category' id='cat1'/>
-                <label htmlFor="cat1" className='ms-2 cursor-pointer'>More than 30 questions</label>
+                <input type="radio" name='q_count' id='q_count3'/>
+                <label htmlFor="q_count3" className='ms-2 cursor-pointer'>More than 30 questions</label>
                 </div>
              </div>
         </div>

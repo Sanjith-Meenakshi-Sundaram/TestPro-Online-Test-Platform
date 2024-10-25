@@ -62,7 +62,7 @@ export const Test = ({setisTest,exitfull,fullscreen,data,setData,curruser,testde
 
   const handelFinish=()=>{
     console.log("submitted");
-     navigate('/result');
+    navigate('/result',{replace:true});
   }
 
   return (<>
