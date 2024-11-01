@@ -3,7 +3,7 @@ import image from "../assets/images/profile.png";
 import backgroung from "../assets/images/pro_back.png";
 import Profile_test_card from "../Components/Profile_test_card";
 import { useState } from "react";
-function Ho_me(){
+function Profile(){
     const [showmore1,setState1]=useState(false);
     const [showmore2,setState2]=useState(false);
  return(
@@ -66,4 +66,4 @@ function Ho_me(){
     </>
  );
 }
-export default Ho_me;
+export default Profile;

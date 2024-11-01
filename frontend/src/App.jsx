@@ -10,7 +10,8 @@ import Login from "./pages/Login"
 import Register from "./pages/Register"
 import Admin from "./pages/Admin"
 import Review from "./pages/Review"
-import Ho_me from "./pages/Ho_me"
+import Profile from "./pages/Profile"
+import Landing from "./pages/Landing"
 
 function App() {
 
@@ -68,8 +69,9 @@ function App() {
          !isTest&&<Navbar curruser={curruser} setCurruser={setCurruser}/>
        }
       <Routes>
-        <Route path="/home" element={<Ho_me testdata={testdata} startExam={startExam} curruser={curruser} testdetails={testdetails} setDetails={setDetails}/>}/>
-        <Route path="/" element={<Home testdata={testdata} startExam={startExam} curruser={curruser} testdetails={testdetails} setDetails={setDetails}/>}/>
+        <Route path="/" element={<Landing />}/>
+        <Route path="/profile" element={<Profile testdata={testdata} startExam={startExam} curruser={curruser} testdetails={testdetails} setDetails={setDetails}/>}/>
+        <Route path="/home" element={<Home testdata={testdata} startExam={startExam} curruser={curruser} testdetails={testdetails} setDetails={setDetails}/>}/>
         <Route path="/admin" element={<Admin/>}/>
         <Route path="/login" element={<Login setCurruser={setCurruser}/>}/>
         <Route path="/register" element={<Register setCurruser={setCurruser}/>}/>

@@ -26,7 +26,7 @@ function Navbar({curruser, setCurruser}) {
                  </div>
            </div>
            <div className='relative flex justify-center items-center gap-3 text-base font-semibold'>
-                <NavLink to="/" className="hover:text-[#01b4dc] border-b-2 border-white">Home</NavLink>
+                <NavLink to="/" className={`hover:text-[#01b4dc] border-b-2 border-white ${!curruser?"hidden":""}`}>Home</NavLink>
                 <NavLink to='/login' className={`hover:text-[#01b4dc] ${curruser?"hidden":""}`}>Login</NavLink>
                 <NavLink to='/register' className={`hover:text-[#01b4dc] ${curruser?"hidden":""}`}>SignUp</NavLink>
                 <button className={`hover:text-[#01b4dc] ${!curruser?"hidden":""}`} onClick={handelLogout}>LogOut</button>
@@ -44,7 +44,7 @@ function Navbar({curruser, setCurruser}) {
                            <p className='mt-5'>Hi {curruser?curruser.username:""}</p>
                            <div className='flex justify-between'>
                            <button className={`${!curruser?"hidden":""}px-4 py-2 rounded-lg bg-white border-2 border-[#01b4dc] mx-2 `} onClick={handelLogout}>LogOut</button>
-                           <button className={`px-4 py-2 rounded-lg bg-[#01b4dc] text-zinc-100 mx-2 ${!curruser?"hidden":""}`} onClick={()=>navigate("/home")}>My Profile</button>
+                           <button className={`px-4 py-2 rounded-lg bg-[#01b4dc] text-zinc-100 mx-2 ${!curruser?"hidden":""}`} onClick={()=>navigate("/profile")}>My Profile</button>
                            </div>
                     </div>
                     </div>

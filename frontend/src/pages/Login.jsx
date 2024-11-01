@@ -22,11 +22,11 @@ function Login({setCurruser}) {
           setLoader(false);
           if(user.isAdmin){
             console.log("admin login");
-            navigate('/');
+            navigate('/home');
           }
           else{
             console.log("regular user login");
-            navigate('/',{replace:true});
+            navigate('/home',{replace:true});
           }
         console.log("Login Successful");
         setUser("");
