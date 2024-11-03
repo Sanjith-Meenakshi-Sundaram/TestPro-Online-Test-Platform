@@ -9,8 +9,8 @@ const PreTestPopup = ({setExamindex,examindex,startExam,testdetails}) => {
     }
     
   return (
-          <div className='w-full h-full overflow-auto rounded bg-[#F3F3F4] px-10 flex flex-col justify-center gap-4'>
-               <div className='bg-white rounded-lg px-10 py-5 mt-20'>
+          <div className='w-full h-[100%] overflow-auto rounded bg-[#F3F3F4] px-10 flex flex-col justify-center gap-4'>
+               <div className='bg-white rounded-lg px-10 py-5'>
                <h1 className='text-xl font-semibold text-center pb-2'>Get Ready to Shine!</h1>
                     <h1 className='text-lg font-semibold'>Before You Begin</h1>
                     <ul className='list-disc gap-2 flex flex-col'>
@@ -20,8 +20,8 @@ const PreTestPopup = ({setExamindex,examindex,startExam,testdetails}) => {
                         <li>Use Your Resources Wisely: If you're stuck, think it through. Trust what you've studied!</li>
                     </ul>
                </div>
-               <div className='flex justify-center gap-4'>
-               <div className=' w-[39%] bg-white rounded-lg px-10 py-5'>
+               <div className='flex flex-col lg:flex-row justify-center gap-4'>
+               <div className=' w-[100%] lg:w-[39%] bg-white rounded-lg px-10 py-5'>
                     <h1 className='text-lg font-semibold'>Test Details:</h1>
                     <ul className='list-disc gap-2 flex flex-col'>
                         <li>Test: {testdetails.title}</li>
@@ -30,7 +30,7 @@ const PreTestPopup = ({setExamindex,examindex,startExam,testdetails}) => {
                         <li>Test Category: {testdetails.category}</li>
                     </ul>
                </div>
-               <div className='w-[60%] bg-white rounded-lg px-10 py-5'>
+               <div className='w-[100%] lg:w-[60%] bg-white rounded-lg px-10 py-5'>
                     <h1 className='text-lg font-semibold'>
                     Instructions:</h1>
                     <ul className='list-disc gap-2 flex flex-col'>

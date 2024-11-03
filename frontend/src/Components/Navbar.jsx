@@ -16,7 +16,7 @@ function Navbar({curruser, setCurruser}) {
         navigate('/login',{});
      }
   return (
-    <div className='flex justify-between items-center px-12 h-[5rem] text-xl sticky top-0 bg-white z-[100]'>
+    <div className='flex justify-between items-center px-12 h-[5rem] text-xl sticky top-0 bg-white z-[100] hidden'>
            <div className='flex justify-center items-center gap-3'>
                  <div className='flex justify-center items-center gap-2 font-semibold' >
                       <FontAwesomeIcon icon={faBookmark} style={{color:"#01b4dc", fontSize:"2.2rem", zIndex:"100"}} />
@@ -25,7 +25,9 @@ function Navbar({curruser, setCurruser}) {
                  <div>
                  </div>
            </div>
+
            <div className='relative flex justify-center items-center gap-3 text-base font-semibold'>
+                <NavLink to="/admin" className={`hover:text-[#01b4dc] border-b-2 border-white`}>Admin</NavLink>
                 <NavLink to="/" className={`hover:text-[#01b4dc] border-b-2 border-white ${!curruser?"hidden":""}`}>Home</NavLink>
                 <NavLink to='/login' className={`hover:text-[#01b4dc] ${curruser?"hidden":""}`}>Login</NavLink>
                 <NavLink to='/register' className={`hover:text-[#01b4dc] ${curruser?"hidden":""}`}>SignUp</NavLink>

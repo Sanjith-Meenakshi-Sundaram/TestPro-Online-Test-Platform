@@ -12,6 +12,10 @@ import Admin from "./pages/Admin"
 import Review from "./pages/Review"
 import Profile from "./pages/Profile"
 import Landing from "./pages/Landing"
+import ManageTest from "./pages/ManageTest"
+import ManageUser from "./pages/ManageUser"
+import CreateTest from "./pages/CreateTest"
+import Error from "./pages/Error"
 
 function App() {
 
@@ -72,12 +76,19 @@ function App() {
         <Route path="/" element={<Landing />}/>
         <Route path="/profile" element={<Profile testdata={testdata} startExam={startExam} curruser={curruser} testdetails={testdetails} setDetails={setDetails}/>}/>
         <Route path="/home" element={<Home testdata={testdata} startExam={startExam} curruser={curruser} testdetails={testdetails} setDetails={setDetails}/>}/>
-        <Route path="/admin" element={<Admin/>}/>
+        <Route path="/admin" element={<Admin/>}>
+              <Route path="" element={<ManageTest/>}/>
+              <Route path="users" element={<ManageUser/>}/>
+              <Route path="tests" element={<ManageTest/>}/>
+              <Route path="create" element={<CreateTest/>}/>
+
+        </Route>
         <Route path="/login" element={<Login setCurruser={setCurruser}/>}/>
         <Route path="/register" element={<Register setCurruser={setCurruser}/>}/>
         <Route path="/test" element={<Test setisTest={setisTest} exitfull={handleExitFullscreen} fullscreen={handleFullscreen} data={data} setData={setData} curruser={curruser} testdetails={testdetails}/>}/>
         <Route path="/result" element={<Finish data={data} curruser={curruser}/>}/>
         <Route path="/review" element={<Review data={data}/>}/>
+        <Route path="*" element={<Error code="404" msg="Page Not Found"/>}/>
 
       </Routes>
       
