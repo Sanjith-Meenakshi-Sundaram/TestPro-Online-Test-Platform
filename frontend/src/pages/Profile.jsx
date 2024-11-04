@@ -8,8 +8,8 @@ function Profile(){
     const [showmore2,setState2]=useState(false);
  return(
     <>
-    <div className="w-[100%] h-[100%] bg-[#F3F3F4] p-10 flex justify-between">
-       <div className="w-[25%] bg-white rounded-lg overflow-hidden">
+    <div className="w-[100%] h-[100%] bg-[#F3F3F4] p-5 md:p-10 flex flex-col md:flex-row justify-between">
+       <div className="w-[100%]  md:w-[25%] bg-white rounded-lg overflow-hidden">
              <div className="relative z-[50]">
                 <img className="w-[40rem]" src={backgroung} alt="" />
                 <img className="absolute rounded-full w-[47%] m-auto left-0 right-0 top-0 bottom-0" src={image} alt="image" />
@@ -35,31 +35,31 @@ function Profile(){
              </div>
 
        </div> 
-       <div className="w-[73%] h-[100%] ps-10 flex flex-col gap-5">
-                  <div className="w-[100%] p-7 pb-4 rounded-lg bg-white">
+       <div className="w-[100%]  md:w-[73%] mt-3 md:mt-0 h-[100%] lg:ps-10 flex flex-col md:items-center gap-5">
+                  <div className="w-[100%]  p-7 pb-4 rounded-lg bg-white">
                        <p className="text-lg border-b-2 border-[#B5E3F1] font-semibold text-zinc-600">List of Tests Taken</p>
-                        <div className={`w-[100%] flex gap-3 overflow-x-auto pt-5 ${showmore1?"flex-wrap":""}`}>
-                        <div className="w-[15rem]"><Profile_test_card/></div>
-                        <div className="w-[15rem]"><Profile_test_card/></div>
-                        <div className="w-[15rem]"><Profile_test_card/></div>
-                        <div className="w-[15rem]"><Profile_test_card/></div>
-                        <div className="w-[15rem]"><Profile_test_card/></div>
+                        <div className={`w-[100%] flex flex-col lg:flex-row items-center gap-3 lg:overflow-x-auto pt-5 ${showmore1?"lg:flex-wrap":""}`}>
+                        <div className="w-full lg:w-[15rem]"><Profile_test_card/></div>
+                        <div className="w-full lg:w-[15rem]"><Profile_test_card/></div>
+                        <div className="w-full lg:w-[15rem]"><Profile_test_card/></div>
+                        <div className="w-full lg:w-[15rem]"><Profile_test_card/></div>
+                        <div className="w-full lg:w-[15rem]"><Profile_test_card/></div>
                         </div>
-                       <p className="text-end text-sm text-[#609AB0] cursor-pointer" onClick={()=>setState1(!showmore1)}>{showmore1?"show less":"show more"}</p>
+                       <p className=" hidden lg:block text-end text-sm text-[#609AB0] cursor-pointer" onClick={()=>setState1(!showmore1)}>{showmore1?"show less":"show more"}</p>
                   </div>
-                  <div className="w-[100%] p-4 rounded-lg bg-white">
+                  <div className="w-[100%]  p-4 rounded-lg bg-white">
                       <p className="text-lg border-b-2 border-[#B5E3F1] font-semibold text-zinc-600">Scores and Analysis</p>
                   </div>
-                  <div className="w-[100%] p-7 pb-4 rounded-lg bg-white">
+                  <div className="w-[100%]  p-7 pb-4 rounded-lg bg-white">
                        <p className="text-lg border-b-2 border-[#B5E3F1] font-semibold text-zinc-600">Upcoming or Pending Tests</p>
-                        <div className={`w-[100%] flex gap-3 overflow-x-auto pt-5 ${showmore2?"flex-wrap":""}`}>
-                        <div className="w-[15rem]"><Profile_test_card/></div>
-                        <div className="w-[15rem]"><Profile_test_card/></div>
-                        <div className="w-[15rem]"><Profile_test_card/></div>
-                        <div className="w-[15rem]"><Profile_test_card/></div>
-                        <div className="w-[15rem]"><Profile_test_card/></div>
+                        <div className={`w-[100%] flex flex-col md:flex-row gap-3 overflow-x-auto pt-5 ${showmore2?"lg:flex-wrap":""}`}>
+                        <div className="w-full md:w-[15rem]"><Profile_test_card/></div>
+                        <div className="w-full md:w-[15rem]"><Profile_test_card/></div>
+                        <div className="w-full md:w-[15rem]"><Profile_test_card/></div>
+                        <div className="w-full md:w-[15rem]"><Profile_test_card/></div>
+                        <div className="w-full md:w-[15rem]"><Profile_test_card/></div>
                         </div>
-                       <p className="text-end text-sm text-[#609AB0] cursor-pointer" onClick={()=>setState2(!showmore2)}>{showmore2?"show less":"show more"}</p>
+                       <p className="hidden md:block text-end text-sm text-[#609AB0] cursor-pointer" onClick={()=>setState2(!showmore2)}>{showmore2?"show less":"show more"}</p>
                   </div>
        </div>
     </div>

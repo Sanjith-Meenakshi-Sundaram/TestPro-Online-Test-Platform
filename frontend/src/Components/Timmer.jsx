@@ -51,20 +51,20 @@ function Timmer({Finish,minuts}) {
 
 
   return (
-      <div className='flex justify-center items-center gap-4 p-6'>
+      <div className='flex justify-center items-center gap-4 p-0 lg:p-6'>
      <div>
       <h1>{`${time.hrs<10?`0${time.hrs}`:`${time.hrs}`}`}</h1>
-      <h1>hrs</h1>
+      <h1 className='hidden lg:block'>hrs</h1>
      </div>
      <h1>:</h1>
      <div>
      <h1>{`${time.mnt<10?`0${time.mnt}`:`${time.mnt}`}`}</h1>
-     <h1>min</h1>
+     <h1 className='hidden lg:block'>min</h1>
      </div>
      <h1>:</h1>
      <div>
      <h1>{`${time.sec<10?`0${time.sec}`:`${time.sec}`}`}</h1>
-     <h1>sec</h1>
+     <h1 className='hidden lg:block'>sec</h1>
      </div>
     </div>
   )

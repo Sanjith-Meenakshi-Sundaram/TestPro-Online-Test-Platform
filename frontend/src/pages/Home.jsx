@@ -18,8 +18,8 @@ function Home({testdata,startExam,curruser,testdetails,setDetails}) {
       }
    })
   return (<>
-    <div className="w-[100%] h-[100vh] bg-[#F3F3F4] lg:p-10 pt-5 flex flex-col lg:flex-row justify-between">
-          {examindex&& <div className='w-full h-full fixed top-[0] left-[0] flex justify-center items-center bg-zinc-100 z-[100]'>
+    <div className="w-[100%] h-[100vh] bg-[#F3F3F4] lg:p-10 pt-2 flex flex-col lg:flex-row justify-between">
+          {examindex&& <div className='w-full absolute top-[0] left-[0] flex justify-center items-center bg-zinc-100 z-[100]'>
               <PreTestPopup setExamindex={setExamindex} startExam={startExam} examindex={examindex} testdetails={testdetails} />
           </div>}
           <button onClick={(e)=> {e.preventDefault(); return setFilter((pre)=>!pre)}} className='py-2 flex gap-1 justify-center items-center mb-2 sticky top-0 bg-white lg:hidden z-[80]'>
