@@ -14,7 +14,7 @@ function Landing(){
                            <div className="w-[80%] lg:w-[50%] p-2 lg:p-8 flex flex-col justify-center items-center gap-4">
                                  <p className="text-[2.1rem] font-semibold text-center">Every Test with <span className="text-[#01b4dc] font-bold">TestPro</span> Brings You Closer to Your Dreams!</p>
                                  <p className='text-zinc-800 text-center'>Your Success Story Starts Now Reach New Heights with TestPro.</p>
-                                 <NavLink to='/login' className="py-2 px-4 text-white text-sm font-semibold rounded-lg bg-[#01b4dc]">Get Start</NavLink>
+                                 <NavLink to='/home' className="py-2 px-4 text-white text-sm font-semibold rounded-lg bg-[#01b4dc]">Get Start</NavLink>
                            </div>
                            <div className="w-[80%] lg:w-[50%]">
                                 <img className='' src="https://cdni.iconscout.com/illustration/premium/thumb/education-illustration-download-in-svg-png-gif-file-formats--training-courses-distance-learning-online-university-isometric-pack-miscellaneous-illustrations-3135812.png?f=webp" alt="" />

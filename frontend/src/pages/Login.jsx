@@ -41,9 +41,9 @@ function Login({setCurruser}) {
 
   return (
     <div className='flex justify-center items-center bg-[#F3F3F4] p-2 lg:p-5 h-[80vh]'>
-           {loader&&<div className="h-[100vh] w-[100%] fixed top-0 flex justify-center items-center  bg-zinc-600 bg-opacity-50">
+           {loader&&
                <Buffer/>
-           </div>}
+           }
            <div className='w-[50%] p-10 hidden lg:block'>
                   <img className='w-[80%] rounded-lg shadow-lg' src={image} alt="" />
            </div>

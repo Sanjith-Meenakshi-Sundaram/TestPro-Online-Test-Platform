@@ -70,7 +70,7 @@ export const Test = ({setisTest,exitfull,fullscreen,data,setData,curruser,testde
    <div className='bg-zinc-100 flex flex-col lg:flex-row'>
     <div className='w-[100%] lg:w-[75%] flex flex-col justify-between' >
       <div>
-      <div className='bg-zinc-50 py-2 px-4 flex justify-around items-center'>
+      <div className='bg-zinc-300 py-2 px-4 flex justify-around items-center'>
          <button onClick={()=>{setSideQue((pre)=>(!pre))}} className='pe-2 lg:hidden'><FontAwesomeIcon icon={faBars} /></button>
          <h1 className='text-xl text-center font-semibold'>Online - {testdetails.title}</h1>
       </div>
@@ -138,7 +138,7 @@ export const Test = ({setisTest,exitfull,fullscreen,data,setData,curruser,testde
 </div>
       </div>
       
-   <div className= {`absolute ${sideQue?"right-[0]":"right-[100%]"} transition-all ease-in-out delay-150 duration-200 lg:relative w-[100%] lg:w-[25%] bg-white h-[100vh] lg:block overflow-hidden pb-10 lg:pb-60`}>
+   <div className= {`absolute lg:static ${sideQue?"right-[0]":"right-[100%]"} transition-all ease-in-out delay-150 duration-200 w-[100%] lg:w-[25%] bg-white h-[100vh] overflow-hidden pb-10 lg:pb-60`}>
         <div className='sticky top-0 bg-white hidden lg:block'>
           <h1 className='text-center bg-zinc-300 p-2 text-lg font-500 font-semibold'><FontAwesomeIcon icon={faClock}/> Time Left</h1>
           <Timmer Finish={handelFinish} minuts={Math.floor(data.length/2)}/>
@@ -151,9 +151,9 @@ export const Test = ({setisTest,exitfull,fullscreen,data,setData,curruser,testde
       {
         data.map((que,index)=>{
           return (
-            <div key={index} className={`relative rounded-full py-3 px-4 border-2 m-2 font-500 cursor-pointer ${que.markforreview?"bg-purple-500":currQuestionIndex==index?"bg-blue-500":que.selectedOption?"bg-green-500":que.isVisited?"bg-red-500":""}`} onClick={(e)=>{handelNext(e,index)}}>
+            <div key={index} className={`relative rounded-[20%] h-[4rem] w-[4rem] text-center pt-3  border-2 m-2 font-500 cursor-pointer ${que.markforreview?"bg-purple-500":currQuestionIndex==index?"bg-blue-500":que.selectedOption?"bg-green-500":que.isVisited?"bg-red-500":""}`} onClick={(e)=>{handelNext(e,index)}}>
               {index+1<10?`0${index+1}`:index+1}
-              {que.markforreview&&que.selectedOption&&<div className='absolute top-7'><FontAwesomeIcon icon={faCircleCheck} style={{color: "#65e697",}} /></div>}
+              {que.markforreview&&que.selectedOption&&<div className='absolute top-9 left-[1.4rem]'><FontAwesomeIcon icon={faCircleCheck} style={{color: "#65e697",}} /></div>}
             </div>
             
           )

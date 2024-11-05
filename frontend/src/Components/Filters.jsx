@@ -3,7 +3,7 @@ import {faFilter} from '@fortawesome/free-solid-svg-icons'
 
 function Filters({setFilter}) {
     return(<>
-         <div className="w-[100%] h-[100vh] lg:h-full bg-white rounded-lg p-6 lg:p-12 pt-8 m-0 flex flex-col gap-8 justify-start overflow-auto">
+         <div className="w-[100%] h-[100vh] lg:h-full bg-white rounded-lg p-12 pt-8 m-0 flex flex-col gap-8 justify-start overflow-auto">
              <div className='flex gap-1 justify-center items-center mb-2 sticky top-0 bg-white'>
                 <FontAwesomeIcon icon={faFilter} style={{color:"#01b4dc"}} />
                 <p className='font-semibold'>Filters</p>
