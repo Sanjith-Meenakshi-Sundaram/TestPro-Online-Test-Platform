@@ -34,6 +34,7 @@ export const Test = ({setisTest,exitfull,fullscreen,data,setData,curruser,testde
     }
     handelVisited(currQuestionIndex);
     setCurrQuestion(index);
+    setSideQue(false);
   }
 
   const handelMark=(option)=>{
@@ -108,7 +109,7 @@ export const Test = ({setisTest,exitfull,fullscreen,data,setData,curruser,testde
    </div>
    <div  className=' flex justify-end'>
          <button className={`px-2 py-2 text-xs lg:text-sm lg:px-4 rounded bg-zinc-700 font-semibold text-zinc-100 mx-2 ${currQuestionIndex==0?"hidden":""}`} onClick={(e)=>{handelNext(e,currQuestionIndex-1)}}><FontAwesomeIcon icon={faAngleLeft} /> Prev</button>
-         <button className={`px-2 py-2 text-xs lg:text-sm lg:px-4 rounded bg-blue-600 font-semibold text-zinc-100 mx-2 ${currQuestionIndex==data.length-1?"hidden":""}`} onClick={(e)=>{handelNext(e,currQuestionIndex+1)}}>Next <FontAwesomeIcon icon={faAngleRight} /></button>
+         <button className={`px-2 py-2 text-xs lg:text-sm lg:px-4 rounded bg-blue-600 font-semibold text-zinc-100 mx-2 ${currQuestionIndex==data.length-1?"hidden":""}`} onClick={(e)=>{handelNext(e,currQuestionIndex+1)}}>Save & Next <FontAwesomeIcon icon={faAngleRight} /></button>
          <button className={`px-2 py-2 text-xs lg:text-sm lg:px-4 rounded bg-green-600 font-semibold text-zinc-100 mx-2 ${currQuestionIndex!=data.length-1?"hidden":""}`} onClick={()=>{handelFinish()}}>submit and finish</button>
          <button className={`px-2 py-2 text-xs lg:text-sm lg:px-4 rounded bg-red-600 font-semibold text-zinc-100 mx-2`} onClick={()=>{handelFinish()}}>Finish</button>
    </div>
