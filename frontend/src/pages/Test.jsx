@@ -68,8 +68,8 @@ export const Test = ({setisTest,exitfull,fullscreen,data,setData,curruser,testde
   }
 
   return (<>
-   <div className='bg-zinc-100 flex flex-col lg:flex-row'>
-    <div className='w-[100%] lg:w-[75%] flex flex-col justify-between' >
+   <div className='h-[100vh] bg-zinc-100 flex flex-col lg:flex-row'>
+    <div className='w-[100%] lg:w-[75%] h-[100%] pb-5 flex flex-col justify-between' >
       <div>
       <div className='bg-zinc-300 py-2 px-4 flex justify-around items-center'>
          <button onClick={()=>{setSideQue((pre)=>(!pre))}} className='pe-2 lg:hidden'><FontAwesomeIcon icon={faBars} /></button>
@@ -145,7 +145,7 @@ export const Test = ({setisTest,exitfull,fullscreen,data,setData,curruser,testde
           <Timmer Finish={handelFinish} minuts={Math.floor(data.length/2)}/>
         </div>
         <div className='flex justify-around bg-zinc-300 px-5'>
-        <button onClick={()=>{setSideQue((pre)=>(!pre))}} className='pe-2 lg:hidden'><FontAwesomeIcon icon={faBars} /></button>
+        <button onClick={()=>{setSideQue((pre)=>(!pre))}} className='ps-5 lg:hidden'><FontAwesomeIcon icon={faBars} /></button>
         <h1 className='text-lg font-semibold text-center w-[100%] py-2'>Question Panel</h1>
         </div>
         <div className='flex flex-wrap justify-center h-full overflow-y-auto'>
