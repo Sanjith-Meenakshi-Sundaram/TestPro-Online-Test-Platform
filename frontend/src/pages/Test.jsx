@@ -3,32 +3,38 @@ import Timmer from "../Components/Timmer"
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faAngleLeft,faAngleRight,faCircleCheck, faBars,faClock} from '@fortawesome/free-solid-svg-icons'
+import isTokenExpired from '../utils/isTokenExpired';
 
-export const Test = ({setisTest,exitfull,fullscreen,data,setData,curruser,testdetails}) => {
+export const Test = ({setisTest,exitfull,fullscreen,data,setData,testdetails}) => {
   
   const [currQuestionIndex,setCurrQuestion]= useState(0);
   const [score,setScore]= useState(0);
   const [sideQue,setSideQue]=useState(false);
   const navigate=useNavigate();
+  const [curruser,setCurruser]=useState({});
+
   useEffect(()=>{
+
     fullscreen();
     setisTest(true);
-    if(!curruser){
-      navigate('/');
+
+    if(!localStorage.getItem('token')||isTokenExpired(localStorage.getItem('token')||!localStorage.getItem('user'))){
+      navigate('/login');
       return;
     }
+    setCurruser(JSON.parse(localStorage.getItem('user')));
+
     setData(data.map((que)=>{
       return{...que,isVisited:false,selectedOption:"",markforreview:false}
     }));
+
     return(()=>{
       exitfull();
       setisTest(false);
-     // handelFinish();
     });
   },[])
 
   const handelNext=(e,index)=>{
-    //e.preventDefault();
     if(data[currQuestionIndex].correctOption===data[currQuestionIndex].selectedOption){
         setScore((pre)=>pre+1);
     }

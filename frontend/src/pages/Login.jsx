@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import api from '../service/api'
 import { useNavigate, NavLink } from 'react-router-dom';
 import image from "../assets/images/4119036.jpg"
 import Buffer from "../Components/Buffer";
-function Login({setCurruser}) {
+function Login({setisLogedIn}) {
 
     let [username,setUser]=useState("");
     let [password,setPass]=useState("");
-    let [loader,setLoader]=useState(false)
+    let [loader,setLoader]=useState(false);
     let [LoginError,setError]=useState(false);
     const navigate=useNavigate();
 
@@ -18,7 +18,8 @@ function Login({setCurruser}) {
         .then((res)=>{
           const {token,user}=res.data;
           localStorage.setItem('token',token)
-          setCurruser(user);
+          localStorage.setItem('user',JSON.stringify(user));
+          setisLogedIn(true);
           setLoader(false);
           if(user.isAdmin){
             console.log("admin login");
@@ -40,7 +41,7 @@ function Login({setCurruser}) {
     }
 
   return (
-    <div className='flex justify-center items-center bg-[#F3F3F4] p-2 lg:p-5 h-[80vh]'>
+    <div className='flex justify-center items-center bg-[#F3F3F4] p-2 lg:p-5 h-[80vh] lg:h-[100vh]'>
            {loader&&
                <Buffer/>
            }

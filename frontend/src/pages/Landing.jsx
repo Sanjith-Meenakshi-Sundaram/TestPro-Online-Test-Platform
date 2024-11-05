@@ -25,8 +25,8 @@ function Landing(){
                           <p className='mt-3 lg:mt-0 text-xl font-semibold text-center'>What are you looking for ?</p>
                           <div className='p-2 lg:p-10 flex flex-wrap justify-center gap-2 lg:gap-4'>
                               {
-                                data.map((exam)=>{
-                                    return <ShowCard exam={exam}/>
+                                data.map((exam,idx)=>{
+                                    return <ShowCard key={idx} exam={exam}/>
                                 })
                               }
                           </div>

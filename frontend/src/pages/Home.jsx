@@ -7,16 +7,11 @@ import Filters from '../Components/Filters';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faFilter} from '@fortawesome/free-solid-svg-icons'
 
-function Home({testdata,startExam,curruser,testdetails,setDetails}) {
+function Home({testdata,startExam,testdetails,setDetails}) {
    const[examindex,setExamindex]=useState();
    const nevigate=useNavigate();
    const[filter,setFilter]=useState(false);
 
-   useEffect(()=>{
-      if(!curruser){
-        nevigate("/login");
-      }
-   })
   return (<>
     <div className="w-[100%] h-[100vh] bg-[#F3F3F4] lg:p-10 pt-2 flex flex-col lg:flex-row justify-between">
           {examindex&& <div className='w-full absolute top-[0] left-[0] flex justify-center items-center bg-zinc-100 z-[100]'>

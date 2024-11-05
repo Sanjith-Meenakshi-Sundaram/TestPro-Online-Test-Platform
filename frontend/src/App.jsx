@@ -1,4 +1,4 @@
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import Finish from "./pages/Finish"
 import Navbar from "./Components/Navbar"
 import Home from "./pages/Home"
@@ -16,11 +16,12 @@ import ManageTest from "./pages/ManageTest"
 import ManageUser from "./pages/ManageUser"
 import CreateTest from "./pages/CreateTest"
 import Error from "./pages/Error"
+import isTokenExpired from "./utils/isTokenExpired"
 
 function App() {
 
     const [data,setData]=useState([...testdata[0].questions]);
-    const [curruser,setCurruser]=useState();
+    const [isLogedIn,setisLogedIn]=useState(false);
     const navigate=useNavigate();
     const [testdetails,setDetails]=useState({
       ques:0,
@@ -31,17 +32,9 @@ function App() {
     const [isTest,setisTest]=useState(false);
 
     const startExam=(index)=>{
-      if(!curruser){
-       navigate('/login');
-        return;
-      }
       setData([...testdata[index-1].questions]);
-      // setDetails((pre)=>{
-      //   return {...pre,ques:testdata[index-1].questions.length,time:testdata[index-1].questions.length/2,title:testdata[index-1].title}
-      // })
       navigate('/test');
     }
-
 
     //controlling full screen in test
     if (!document.fullscreenEnabled) {
@@ -70,12 +63,12 @@ function App() {
   return (<>
      <div ref={elementRef} className="bg-white">
        {
-         !isTest&&<Navbar curruser={curruser} setCurruser={setCurruser}/>
+         !isTest&&<Navbar isLogedIn={isLogedIn} setisLogedIn={setisLogedIn}/>
        }
       <Routes>
         <Route path="/" element={<Landing />}/>
-        <Route path="/profile" element={<Profile testdata={testdata} startExam={startExam} curruser={curruser} testdetails={testdetails} setDetails={setDetails}/>}/>
-        <Route path="/home" element={<Home testdata={testdata} startExam={startExam} curruser={curruser} testdetails={testdetails} setDetails={setDetails}/>}/>
+        <Route path="/profile" element={<Profile testdata={testdata} startExam={startExam} testdetails={testdetails} setDetails={setDetails}/>}/>
+        <Route path="/home" element={<Home testdata={testdata} startExam={startExam} testdetails={testdetails} setDetails={setDetails}/>}/>
         <Route path="/admin" element={<Admin/>}>
               <Route path="" element={<ManageTest/>}/>
               <Route path="users" element={<ManageUser/>}/>
@@ -83,10 +76,10 @@ function App() {
               <Route path="create" element={<CreateTest/>}/>
 
         </Route>
-        <Route path="/login" element={<Login setCurruser={setCurruser}/>}/>
-        <Route path="/register" element={<Register setCurruser={setCurruser}/>}/>
-        <Route path="/test" element={<Test setisTest={setisTest} exitfull={handleExitFullscreen} fullscreen={handleFullscreen} data={data} setData={setData} curruser={curruser} testdetails={testdetails}/>}/>
-        <Route path="/result" element={<Finish data={data} curruser={curruser}/>}/>
+        <Route path="/login" element={<Login setisLogedIn={setisLogedIn}/>}/>
+        <Route path="/register" element={<Register setisLogedIn={setisLogedIn}/>}/>
+        <Route path="/test" element={<Test setisTest={setisTest} exitfull={handleExitFullscreen} fullscreen={handleFullscreen} data={data} setData={setData} testdetails={testdetails}/>}/>
+        <Route path="/result" element={<Finish data={data}/>}/>
         <Route path="/review" element={<Review data={data}/>}/>
         <Route path="*" element={<Error code="404" msg="Page Not Found"/>}/>
 

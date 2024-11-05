@@ -1,10 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import isTokenExpired from '../utils/isTokenExpired';
 
 function Review({data}) {
   const [currQuestionIndex,setCurrQuestion]= useState(0);
   const navigate=useNavigate();
+
+  useEffect(()=>{
+    if(!localStorage.getItem('token')||isTokenExpired(localStorage.getItem('token'))){
+      navigate('/login');
+      return;
+    }
+  },[])
 
   const handelNext=(index)=>{
     setCurrQuestion(index);

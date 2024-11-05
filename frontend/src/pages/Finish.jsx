@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import isTokenExpired from '../utils/isTokenExpired';
 
-function Finish({data,curruser}) {
+function Finish({data}) {
     
     const [score,setScore]=useState({
       marked:0,
@@ -12,8 +13,8 @@ function Finish({data,curruser}) {
     const navigate=useNavigate();
 
     useEffect(()=>{
-      if(!curruser){
-        navigate('/login');
+      if(!localStorage.getItem('token')||isTokenExpired(localStorage.getItem('token'))){
+        navigate('/');
         return;
       }
       calculate();

@@ -4,7 +4,7 @@ import image from "../assets/images/4119036.jpg"
 import { NavLink,useNavigate } from 'react-router-dom'
 import Buffer from "../Components/Buffer";
 
-const Register = ({setCurruser}) => {
+const Register = ({setisLogedIn}) => {
 
     let [username,setUser]=useState("");
     let [email,setEmail]=useState("");
@@ -20,8 +20,9 @@ const Register = ({setCurruser}) => {
         api.post('/user/register',{username,email,password})
         .then((res)=>{
           const {token,user}=res.data;
-          localStorage.setItem('token',token)
-          setCurruser(user);
+          localStorage.setItem('token',token);
+          localStorage.setItem('user',user);
+          setisLogedIn(true);
           setLoader(false);
           if(user.isAdmin){
             console.log("admin login");

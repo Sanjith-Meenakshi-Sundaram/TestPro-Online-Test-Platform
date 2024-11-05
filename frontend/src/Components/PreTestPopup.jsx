@@ -1,9 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import isTokenExpired from '../utils/isTokenExpired'
 
 const PreTestPopup = ({setExamindex,examindex,startExam,testdetails}) => {
 
     const navigate=useNavigate()
+
+    useEffect(()=>{
+      if(!localStorage.getItem('token')||isTokenExpired(localStorage.getItem('token')||!localStorage.getItem('user'))){
+        navigate('/login');
+        return;
+      }
+    },[])
+
     const handelStart=()=>{
        startExam(examindex);
     }
