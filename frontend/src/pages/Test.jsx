@@ -68,8 +68,8 @@ export const Test = ({setisTest,exitfull,fullscreen,data,setData,curruser,testde
   }
 
   return (<>
-   <div className='h-[100vh] bg-zinc-100 flex flex-col lg:flex-row'>
-    <div className='w-[100%] lg:w-[75%] h-[100%] pb-5 flex flex-col justify-between' >
+   <div className='h-[100vh] bg-zinc-100 flex flex-col pb-5 lg:flex-row'>
+    <div className='w-[100%] lg:w-[75%] h-[100%] flex flex-col justify-between' >
       <div>
       <div className='bg-zinc-300 py-2 px-4 flex justify-around items-center'>
          <button onClick={()=>{setSideQue((pre)=>(!pre))}} className='pe-2 lg:hidden'><FontAwesomeIcon icon={faBars} /></button>
