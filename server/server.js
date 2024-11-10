@@ -3,6 +3,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors'); 
 const connectDB = require('./config/db');
+const userRoutes = require('./routes/user');
+const testRoutes = require('./routes/test');
+const resultRoutes = require('./routes/result');
 
 const app = express();
 
@@ -10,7 +13,6 @@ const app = express();
 connectDB();
 
 // Middleware
-// CORS configuration (Allow all origins)
 app.use(cors({
     origin: true, // Allow all origins
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
@@ -25,8 +27,9 @@ app.options('*', cors());
 app.use(express.json());
 
 // Routes
-//app.use('/api/admin', require('./routes/admin'));
-app.use('/api/user', require('./routes/user'));
+app.use('/api/user', userRoutes);
+app.use('/api/test', testRoutes);
+app.use('/api/result', resultRoutes);
 
 // Start server
 const PORT = process.env.PORT || 5000;

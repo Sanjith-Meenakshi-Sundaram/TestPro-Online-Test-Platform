@@ -1,14 +1,12 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
-//const config = require('../config');
-//const Car = require("../models/car");
 
 exports.register = async (req, res) => {
   const user = new User(req.body);
   try {
     await user.save();
     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
-    console.log(token);
+    console.log(User.find());
     res.status(201).send({ user, token });
   } catch (error) {
     res.status(400).send(error);
@@ -16,10 +14,10 @@ exports.register = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
-  console.log("request received");
   try {
     const { username, password } = req.body;
     const user = await User.findOne({ username });
+    console.log(User.find());
     if (!user || !(await user.comparePassword(password))) {
       return res.status(400).send({ error: 'Invalid login credentials' });
     }
@@ -30,7 +28,35 @@ exports.login = async (req, res) => {
   }
 };
 
-exports.welcome=async (req,res)=>{
+exports.getUsers=async (req,res)=>{
   const users = await User.find();
   res.send(users);
 };
+
+exports.getFulldetails=async (req,res)=>{
+  const users = await User.findById(req.params.id).populate({path:'results', select:['score','timeTaken','takenAt'],populate:{path:'testId',select:['duration','title','questions','marksperquestion']}}).populate('tests');
+  res.send(users);
+};
+
+exports.deleteUser = async (req,res)=>{
+     const {id}=req.params;
+   try{
+     const user = await User.findByIdAndDelete(id);
+     const users = await User.find();
+     res.status(200).send(users);
+   }
+   catch(error){
+     res.status(500).send(error);
+   }
+}
+
+exports.updateUser = async (req,res)=>{
+  const {id}=req.params;
+   try{
+     const user=await User.findByIdAndUpdate(id,req.body);
+     res.status(200).send(user);
+   }
+   catch(error){
+    res.status(500).send(error);
+   }
+}
