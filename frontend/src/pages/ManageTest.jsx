@@ -1,8 +1,33 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import data from '../data/testdata'
-import { NavLink, Outlet } from 'react-router-dom'
+import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+import api from '../service/api'
 
 export const ManageTest = () => {
+   const navigate=useNavigate();
+   const [tests,setTest]=useState([]);
+   useEffect(()=>{
+     api.get('/test/tests')
+     .then((res)=>{
+       setTest(res.data);
+     })
+     .catch((error)=>{
+      console.log(error);
+     })
+   },[]);
+
+   function handelEdit(id){
+       navigate(`/admin/edit/${id}`);
+   }
+
+   function handelDelete(id){
+      api.delete(`/test/delete/${id}`)
+      .then((res)=>setTest(res.data))
+      .catch(((error)=>{
+         console.log(error.message);
+      }))
+   }
+
   return (
     <div className='px-5 h-[90vh] overflow-y-auto'>
           <NavLink to="/admin/create" className='p-2 flex gap-4 text-lg border rounded mb-3 bg-blue-50'>
@@ -11,23 +36,24 @@ export const ManageTest = () => {
           </NavLink>
           <table className='w-full p-5 border shadow-lg rounded'>
                <thead className='border-b'>
-               <th className='p-2'>S.No.</th>
+                 <tr>
+                     <th className='p-2'>S.No.</th>
                     <th>Title</th>
                     <th>Category</th>
-                    <th className='flex gap-5 p-2'>
-                       <button onClick={()=>setTest(test)}>Edit</button>
-                       <button>Delete</button>
-                    </th>
+                    <th>Actions</th>
+                  </tr>
                </thead>
                <tbody>
-               {data.map((test,idx)=>{
+               {tests.map((test,idx)=>{
                   return <tr key={idx} className='border-b'>
                     <td className='text-center p-2'>{idx+1}</td>
                     <td className='text-center'>{test.title}</td>
                     <td className='text-center'>{test.category}</td>
-                    <td className='flex gap-5 p-2 items-center'>
-                       <button onClick={()=>setTest(test)}>Edit</button>
-                       <button>Delete</button>
+                    <td className='flex gap-5 p-2 items-center justify-center'>
+                        <div className='flex flex-col md:flex-row gap-2'>
+                             <button onClick={()=>handelEdit(test._id)} className='p-2 border rounded'>Edit</button>
+                             <button onClick={()=>handelDelete(test._id)} className='p-2 border rounded'>Delete</button>
+                        </div>
                     </td>
                     </tr>
  

@@ -26,27 +26,31 @@ function Navbar({isLogedIn,setisLogedIn}) {
         navigate('/login');
      }
   return (
-    <div className='flex justify-between items-center px-6 lg:px-12 h-[3.5rem] lg:h-[5rem] text-xl sticky top-0 bg-white z-[100] '>
+    <div className='flex justify-between items-center p-6 lg:px-12 h-[3.5rem] lg:h-[5rem] sticky top-0 bg-white z-[100] '>
            <div className='flex justify-center items-center gap-3'>
-                 <div className='flex justify-center text-2xl items-center gap-2 font-semibold' >
-                      <button onClick={()=>{setSideNav((pre)=>(!pre))}} className='pe-2 lg:hidden z-[300]'><FontAwesomeIcon icon={faBars} /></button>
-                      <NavLink to="/" className='flex gap-2 items-center'>
+                 <div className='flex justify-center items-center gap-2' >
+                      <button onClick={()=>{setSideNav((pre)=>(!pre))}} className='pe-2 font-semibold lg:hidden z-[300] text-2xl'><FontAwesomeIcon icon={faBars} /></button>
+                      <NavLink to="/" className='flex gap-2 font-semibold items-center text-2xl'>
                       <FontAwesomeIcon icon={faBookmark} style={{color:"#01b4dc", zIndex:"100"}} />
-                      <h1 className='hidden lg:block text-[#01b4dc]'>TestPro</h1>
+                      <h1 className='hidden lg:block font-semibold text-2xl text-[#01b4dc]'>TestPro</h1>
                       </NavLink>
+                        <div className='flex gap-4 pt-2 hidden lg:inline'>
+                             <NavLink to="/home" className={`hover:text-[#01b4dc] ps-4 p-2 text-bottom border-b-2 border-white invisible lg:visible`}>Home</NavLink>
+                             <NavLink to="/exams" className={`hover:text-[#01b4dc] p-2 border-b-2 border-white invisible lg:visible ${!curruser?"hidden":""}`}>Exams</NavLink>
+                             <NavLink to="/home" className={`hover:text-[#01b4dc] p-2 border-b-2 border-white invisible lg:visible`}>Tests</NavLink>
+                             <NavLink to="/admin" className={`hover:text-[#01b4dc] p-2 border-b-2 border-white invisible lg:visible ${!curruser||curruser.role=="student"?"hidden":""}`}>{curruser?curruser.role=="admin"?"Admin":"Teacher":""}</NavLink>
+                        </div>
                  </div>
                  <div>
                  </div>
            </div>
 
            <div className='relative flex justify-center items-center gap-3 text-base font-semibold'>
-                <NavLink to="/admin" className={`hover:text-[#01b4dc] border-b-2 border-white hidden lg:block`}>Admin</NavLink>
-                <NavLink to="/" className={`hover:text-[#01b4dc] border-b-2 border-white hidden lg:block ${!curruser?"hidden":""}`}>Home</NavLink>
                 <NavLink to='/login' className={`hover:text-[#01b4dc] ${curruser?"hidden":""}`}>Login</NavLink>
                 <NavLink to='/register' className={`hover:text-[#01b4dc] ${curruser?"hidden":""}`}>Signup</NavLink>
                 <button className={`hover:text-[#01b4dc] hidden lg:static ${!curruser?"hidden":""}`} onClick={handelLogout}>Logout</button>
                 <div className={`${!curruser?"hidden":""} flex gap-2 items-center ms-2`} onClick={()=>{setflag((pre)=>!pre)}}>
-                <img className='rounded-full w-[2rem] h-[2rem]' src={pro_img} alt="" />
+                <img className='rounded-full w-[2rem] h-[2rem]' src={curruser?curruser.profileImg:""} alt="" />
                 <button >{curruser?curruser.username:"profile"} {flag?<FontAwesomeIcon icon={faChevronUp} />:<FontAwesomeIcon icon={faChevronDown} />}</button>
                 </div>
                 {
@@ -63,7 +67,7 @@ function Navbar({isLogedIn,setisLogedIn}) {
           <NavLink to="/profile" className={`${!curruser?"hidden":""}`}><li className='border-b pb-1'><FontAwesomeIcon icon={faUser} /><span className='ms-2'>Profile</span></li></NavLink>
           <NavLink to="/Exams"><li className='border-b pb-1'><FontAwesomeIcon icon={faBookOpen} /><span className='ms-2'>Exams</span></li></NavLink>
           <NavLink to="/home"><li className='border-b pb-1'><FontAwesomeIcon icon={faFile} /><span className='ms-2'>Tests</span></li></NavLink>
-          <NavLink to="/admin" className={`${!curruser?"hidden":""}`}><li className='border-b pb-1'><FontAwesomeIcon icon={faUserTie} /><span className='ms-2'>Admin</span></li></NavLink>
+          <NavLink to="/admin" className={`${!curruser||curruser.role=="student"?"hidden":""}`}><li className='border-b pb-1'><FontAwesomeIcon icon={faUserTie} /><span className='ms-2'>{curruser?curruser.role=="admin"?"Admin":"Teacher":""}</span></li></NavLink>
           <NavLink to="/register" className={`${curruser?"hidden":""}`}><li className='border-b pb-1'><FontAwesomeIcon icon={faArrowRightToBracket} /><span className='ms-2'>Signup</span></li></NavLink>
           <NavLink to="/login" className={`${curruser?"hidden":""}`}><li className='border-b pb-1'><FontAwesomeIcon icon={faArrowRightToBracket} /><span className='ms-2'>Login</span></li></NavLink>
           <button onClick={handelLogout} className={`${!curruser?"hidden":""} text-start`}><li className='border-b pb-1'><FontAwesomeIcon icon={faArrowRightFromBracket} /><span className='ms-2'>Logout</span></li></button>

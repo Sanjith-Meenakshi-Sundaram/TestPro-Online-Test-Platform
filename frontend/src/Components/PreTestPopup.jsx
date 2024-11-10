@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import isTokenExpired from '../utils/isTokenExpired'
 
-const PreTestPopup = ({setExamindex,examindex,startExam,testdetails}) => {
+const PreTestPopup = ({currTest, setCurrTest}) => {
 
     const navigate=useNavigate()
 
@@ -14,11 +14,11 @@ const PreTestPopup = ({setExamindex,examindex,startExam,testdetails}) => {
     },[])
 
     const handelStart=()=>{
-       startExam(examindex);
+       navigate(`/test/${currTest._id}`)
     }
     
   return (
-          <div className='w-full h-[100%] overflow-auto rounded bg-[#F3F3F4] px-10 flex flex-col justify-center gap-4 relative'>
+          <div className='w-full h-[100%] overflow-auto rounded bg-[#F3F3F4] px-10 pt-5 flex flex-col justify-center gap-4 relative'>
                <div className='bg-white rounded-lg px-10 py-5'>
                <h1 className='text-xl font-semibold text-center pb-2'>Get Ready to Shine!</h1>
                     <h1 className='text-lg font-semibold'>Before You Begin</h1>
@@ -33,10 +33,11 @@ const PreTestPopup = ({setExamindex,examindex,startExam,testdetails}) => {
                <div className=' w-[100%] lg:w-[39%] bg-white rounded-lg px-10 py-5'>
                     <h1 className='text-lg font-semibold'>Test Details:</h1>
                     <ul className='list-disc gap-2 flex flex-col'>
-                        <li>Test: {testdetails.title}</li>
-                        <li>Total Questions: {testdetails.ques}</li>
-                        <li>Time Allotted: {testdetails.time}</li>
-                        <li>Test Category: {testdetails.category}</li>
+                        <li>Test: {currTest.title}</li>
+                        <li>Total Questions: {currTest.questions.length}</li>
+                        <li>Time Allotted: {currTest.duration}</li>
+                        <li>Test Category: {currTest.category}</li>
+                        <li>About Test: {currTest.description}</li>
                     </ul>
                </div>
                <div className='w-[100%] lg:w-[60%] bg-white rounded-lg px-10 py-5'>
@@ -77,7 +78,7 @@ const PreTestPopup = ({setExamindex,examindex,startExam,testdetails}) => {
         </div>
 
                 <div className='flex justify-between lg:justify-end mb-5'>
-                <button className='px-4 py-1 rounded border-2 border-[#01b4dc] font-semibold mx-2'onClick={()=>{setExamindex()}}>Cancel</button>
+                <button className='px-4 py-1 rounded border-2 border-[#01b4dc] font-semibold mx-2'onClick={()=>{setCurrTest(null)}}>Cancel</button>
                 <button className='px-4 py-1 rounded bg-[#01b4dc] font-semibold text-zinc-100 mx-2' onClick={handelStart}>Start </button>
                 </div>
           </div>

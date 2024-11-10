@@ -1,17 +1,28 @@
 import React, { useState,useEffect,useRef } from 'react'
 import Timmer from "../Components/Timmer"
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faAngleLeft,faAngleRight,faCircleCheck, faBars,faClock} from '@fortawesome/free-solid-svg-icons'
 import isTokenExpired from '../utils/isTokenExpired';
+import api from '../service/api';
+import Finish from '../Components/Finish';
 
-export const Test = ({setisTest,exitfull,fullscreen,data,setData,testdetails}) => {
+export const Test = ({setisTest,exitfull,fullscreen}) => {
   
   const [currQuestionIndex,setCurrQuestion]= useState(0);
-  const [score,setScore]= useState(0);
+  const [score,setScore]=useState(0);
+  //for phone questions view
   const [sideQue,setSideQue]=useState(false);
+
   const navigate=useNavigate();
   const [curruser,setCurruser]=useState({});
+  const [result,setResult]=useState(null);
+  const [data,setData]=useState([]);
+  const [testdetails,setTestdetails]=useState(null);
+  const [currtime,setcurrTime]=useState(0);
+  const [isFinish,setIsFinish]=useState(false);
+
+  const id=useParams().id;
 
   useEffect(()=>{
 
@@ -24,9 +35,33 @@ export const Test = ({setisTest,exitfull,fullscreen,data,setData,testdetails}) =
     }
     setCurruser(JSON.parse(localStorage.getItem('user')));
 
-    setData(data.map((que)=>{
-      return{...que,isVisited:false,selectedOption:"",markforreview:false}
-    }));
+    api.get(`/test/tests/${id}`)
+    .then((res)=>{
+       setTestdetails({...res.data,questions:[]});
+       const newdata=res.data.questions.map((que)=>{
+         return{
+          ...que,
+          selectedOption:"",
+          isVisited:false,
+          markforreview:false,
+         }
+       })
+
+       setData(newdata);
+
+       const currresult={
+        userId: curruser._id,
+        testId: id,
+        answers: [],
+        score: 0,
+        timeTaken: 0,
+      }
+      setResult(currresult);
+
+    })
+    .catch((error)=>{
+      console.log(error.message);
+    })
 
     return(()=>{
       exitfull();
@@ -36,7 +71,7 @@ export const Test = ({setisTest,exitfull,fullscreen,data,setData,testdetails}) =
 
   const handelNext=(e,index)=>{
     if(data[currQuestionIndex].correctOption===data[currQuestionIndex].selectedOption){
-        setScore((pre)=>pre+1);
+        setScore((pre)=>pre+testdetails.marksperquestion);
     }
     handelVisited(currQuestionIndex);
     setCurrQuestion(index);
@@ -70,16 +105,40 @@ export const Test = ({setisTest,exitfull,fullscreen,data,setData,testdetails}) =
 
   const handelFinish=()=>{
     console.log("submitted");
-    navigate('/result',{replace:true});
+
+    const currresult={
+      userId: curruser._id,
+      testId: id,
+      answers: [],
+      score: score,
+      timeTaken: currtime,
+    }
+
+    currresult.answers=data;
+    api.post('/result/saveresult',currresult)
+    .then((res)=>{
+      console.log(res.data);
+      curruser.results.push(res.data._id);
+      api.put(`/user/users/${curruser._id}`,curruser)
+      .then((res)=>{
+        console.log('test result saved successfully');
+        localStorage.setItem('user',JSON.stringify(curruser));
+      })
+      .catch((error)=>console.log(error.message));
+      setResult(res.data);
+      setIsFinish(true);
+    })
+    .catch((error)=>console.log(error.message));
   }
 
-  return (<>
+  return (testdetails&&data&&<>
+   {isFinish&&result&&<Finish data={data} id={result._id}/>}
    <div className='h-[100vh] bg-zinc-100 flex flex-col lg:flex-row'>
     <div className='w-[100%] lg:w-[75%] h-[100%] pb-5 flex flex-col justify-between overflow-auto' >
       <div>
       <div className='bg-zinc-300 py-2 px-4 flex justify-around items-center'>
          <button onClick={()=>{setSideQue((pre)=>(!pre))}} className='pe-2 lg:hidden'><FontAwesomeIcon icon={faBars} /></button>
-         <h1 className='text-xl text-center font-semibold'>Online - {testdetails.title}</h1>
+         <h1 className='text-xl text-center font-semibold'>Online - {testdetails?testdetails.title:"..."}</h1>
       </div>
       <div className='px-5 py-2 border-b-2 border-zinc-300 flex justify-start gap-4'>
         <div>
@@ -88,13 +147,13 @@ export const Test = ({setisTest,exitfull,fullscreen,data,setData,testdetails}) =
         <div className='text-lg'>
        <h1><span className='font-semibold'>Candidate Name:</span> {curruser.username}</h1>
        <h1><span className='font-semibold'>Totel Questions:</span> {data.length}</h1>
-       <h1 className='hidden lg:block'><span className='font-semibold'>Test:</span> {testdetails.title}</h1>
-       <h1 className='hidden lg:block'><span className='font-semibold'>Time:</span> {testdetails.time} min</h1>
+       <h1 className='hidden lg:block'><span className='font-semibold'>Test:</span> {testdetails?testdetails.title:"..."}</h1>
+       <h1 className='hidden lg:block'><span className='font-semibold'>Time:</span> {testdetails?testdetails.duration:"..."} min</h1>
        </div>
       </div>
       <div className='sticky top-0 bg-zinc-100 border-b-2 flex justify-around lg:hidden'>
           <h1 className='text-center p-2 text-lg font-500 font-semibold'><FontAwesomeIcon icon={faClock}/> Time Left</h1>
-          <Timmer Finish={handelFinish} minuts={Math.floor(data.length/2)}/>
+          {!isFinish&&<Timmer Finish={handelFinish} setcurrTime={setcurrTime} minuts={Math.floor(data.length)}/>}
         </div>
 <ul className='pl-5 pr-8 py-2 flex flex-col justify-center'>
 <h1 className='lg:text-xl pb-3 mb-3 border-b-2 border-zinc-500 font-semibold'>{`Question No. ${currQuestionIndex+1}`}</h1>
@@ -116,8 +175,8 @@ export const Test = ({setisTest,exitfull,fullscreen,data,setData,testdetails}) =
    <div  className=' flex justify-end'>
          <button className={`px-2 py-2 text-xs lg:text-sm lg:px-4 rounded bg-zinc-700 font-semibold text-zinc-100 mx-2 ${currQuestionIndex==0?"hidden":""}`} onClick={(e)=>{handelNext(e,currQuestionIndex-1)}}><FontAwesomeIcon icon={faAngleLeft} /> Prev</button>
          <button className={`px-2 py-2 text-xs lg:text-sm lg:px-4 rounded bg-blue-600 font-semibold text-zinc-100 mx-2 ${currQuestionIndex==data.length-1?"hidden":""}`} onClick={(e)=>{handelNext(e,currQuestionIndex+1)}}>Save & Next <FontAwesomeIcon icon={faAngleRight} /></button>
-         <button className={`px-2 py-2 text-xs lg:text-sm lg:px-4 rounded bg-green-600 font-semibold text-zinc-100 mx-2 ${currQuestionIndex!=data.length-1?"hidden":""}`} onClick={()=>{handelFinish()}}>submit and finish</button>
-         <button className={`px-2 py-2 text-xs lg:text-sm lg:px-4 rounded bg-red-600 font-semibold text-zinc-100 mx-2`} onClick={()=>{handelFinish()}}>Finish</button>
+         <button className={`px-2 py-2 text-xs lg:text-sm lg:px-4 rounded bg-green-600 font-semibold text-zinc-100 mx-2 ${currQuestionIndex!=data.length-1?"hidden":""}`} onClick={()=>handelFinish()}>submit and finish</button>
+         <button className={`px-2 py-2 text-xs lg:text-sm lg:px-4 rounded bg-red-600 font-semibold text-zinc-100 mx-2`} onClick={()=>handelFinish()}>Finish</button>
    </div>
 </div>
 <div className='flex justify-between flex-wrap p-3'>
@@ -138,7 +197,7 @@ export const Test = ({setisTest,exitfull,fullscreen,data,setData,testdetails}) =
       <h1>Marked For Review</h1>
     </div>
     <div className='flex gap-2'>
-      <div className='h-5 w-5 rounded-full bg-red-500 relative'></div>
+      <div className='h-5 w-5 rounded-full bg-red-500'></div>
       <h1>Not Answered</h1>
     </div>
 </div>
@@ -148,13 +207,13 @@ export const Test = ({setisTest,exitfull,fullscreen,data,setData,testdetails}) =
    <div className= {`absolute lg:static ${sideQue?"right-[0]":"right-[100%]"} transition-all ease-in-out delay-150 duration-200 w-[100%] lg:w-[25%] bg-white h-[100vh] overflow-hidden pb-10 lg:pb-60`}>
         <div className='sticky top-0 bg-white hidden lg:block'>
           <h1 className='text-center bg-zinc-300 p-2 text-lg font-500 font-semibold'><FontAwesomeIcon icon={faClock}/> Time Left</h1>
-          <Timmer Finish={handelFinish} minuts={Math.floor(data.length/2)}/>
+          {!isFinish&&<Timmer Finish={handelFinish} setcurrTime={setcurrTime} minutes={testdetails.duration}/>}
         </div>
         <div className='flex justify-around bg-zinc-300 px-5'>
         <button onClick={()=>{setSideQue((pre)=>(!pre))}} className='ps-5 lg:hidden'><FontAwesomeIcon icon={faBars} /></button>
         <h1 className='text-lg font-semibold text-center w-[100%] py-2'>Question Panel</h1>
         </div>
-        <div className='flex flex-wrap justify-center h-full overflow-y-auto'>
+        <div className='flex flex-wrap justify-center gap-1 h-100% overflow-y-auto'>
       {
         data.map((que,index)=>{
           return (

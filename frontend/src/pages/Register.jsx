@@ -21,7 +21,7 @@ const Register = ({setisLogedIn}) => {
         .then((res)=>{
           const {token,user}=res.data;
           localStorage.setItem('token',token);
-          localStorage.setItem('user',user);
+          localStorage.setItem('user',JSON.stringify(user));
           setisLogedIn(true);
           setLoader(false);
           if(user.isAdmin){
@@ -59,9 +59,9 @@ const Register = ({setisLogedIn}) => {
                       <label className='lg:text-lg font-semibold' htmlFor="username">User Name</label>
                       <input className='border-2 rounded mt-2 mb-3 p-2'  type="text" value={username} placeholder='enter your username' onChange={(e)=>{setUser(e.target.value)}} required />
                       <label className='lg:text-lg font-semibold' htmlFor="email">Email</label>
-                      <input className='border-2 rounded-lg mt-2 mb-3 p-2' type="email" value={email} placeholder='enter your email' onChange={(e)=>setEmail(e.target.value)} required />
+                      <input className='border-2 rounded mt-2 mb-3 p-2' type="email" value={email} placeholder='enter your email' onChange={(e)=>setEmail(e.target.value)} required />
                       <label className='lg:text-lg font-semibold' htmlFor="password">Password</label> 
-                      <input className='border-2 rounded-lg mt-2 mb-3 p-2' type="password" value={password} placeholder='enter password' onChange={(e)=>setPass(e.target.value)} required />
+                      <input className='border-2 rounded mt-2 mb-3 p-2' type="password" value={password} placeholder='enter password' onChange={(e)=>setPass(e.target.value)} required />
                       <button className='px-5 py-2 rounded-lg bg-[#01b4dc] font-semibold text-zinc-100 mt-2'>Signup</button>
                 </form>
                 <p className='font-semibold font-500 text-center'>Already have an account? <button className="text-[#01b4dc]" onClick={()=>{navigate("/login",{replace:true})}}>Login</button></p>

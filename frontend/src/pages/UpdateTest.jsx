@@ -1,18 +1,10 @@
 import { useState, useEffect } from "react";
 import api from "../service/api";
-import { useNavigate } from "react-router-dom";
-import isTokenExpired from "../utils/isTokenExpired";
+import { useNavigate, useParams } from "react-router-dom";
 
-function CreateTest(){
+function UpdateTest(){
+    const {id}=useParams();
     const navigate=useNavigate();
-    const [curruser,setCurruser]=useState({});
-    useEffect(()=>{
-      if(!localStorage.getItem('token')||isTokenExpired(localStorage.getItem('token')||!localStorage.getItem('user'))){
-        navigate('/login');
-        return;
-      }
-      setCurruser(JSON.parse(localStorage.getItem('user')));
-    },[])
     const [data,setData]=useState({
         title:'',
         category:'',
@@ -22,8 +14,7 @@ function CreateTest(){
         marksperquestion: 1,
         incorectmarksperquestion: 0,
         description:'',
-        questions:[],
-        createdBy:JSON.parse(localStorage.getItem('user'))._id
+        questions:[]
        });
     const [ques,setQue]=useState({
         question:'',
@@ -31,6 +22,15 @@ function CreateTest(){
         options:["","","",""],
         explanation:''
     })
+    useEffect(()=>{
+      if(id){
+        api.get(`/test/tests/${id}`)
+        .then((res)=>setData(res.data))
+        .catch((error)=>{
+          console.log(error);
+        })
+      }
+   },[])
     const [err,setError]=useState({
         que:'',
         test:''
@@ -40,7 +40,7 @@ function CreateTest(){
            e.preventDefault();
            console.log(data);
 
-           if(data.title==''||data.category==''||data.description==''){
+           if(data.title==''||data.category==''||data.image==''||data.description==''){
              setError((pre)=>{
                return{
                   ...pre,
@@ -49,10 +49,9 @@ function CreateTest(){
              })
              return;
            }
-          
-          if(data.image=='') delete data.image;
 
-          api.post('/test/create',data)
+
+          api.put(`/test/update/${data._id}`,data)
           .then((res)=>{
               console.log(res.data);
               setData({
@@ -66,12 +65,6 @@ function CreateTest(){
                 description:'',
                 questions:[]
                });
-              curruser.tests.push(res.data._id);
-              api.put(`/user/users/${curruser._id}`,curruser)
-              .then((res)=>{
-                console.log('test created successfully');
-              })
-              .catch((error)=>console.log(error.message));
               navigate('/admin/tests');
           })
           .catch((error)=>{
@@ -115,7 +108,7 @@ function CreateTest(){
     <>
     
           <div className="px-2 lg:px-5 h-[90vh] overflow-y-auto">
-               <h1 className="p-2 border rounded mb-3 text-lg text-center font-semibold">Create New Test</h1>
+               <h1 className="p-2 border rounded mb-3 text-lg text-center font-semibold">Update Test</h1>
                <form className="border shadow-lg rounded p-5 lg:px-20 flex flex-col gap-4 cursor-pointer">
                     <label htmlFor="title">Title</label>
                     <input onChange={(e)=>{setData((pre)=>{setError({test:'',que:''}); return{...pre,title:e.target.value}})}} value={data.title} className="p-2 border rounded shadow" type="text" id="title" />
@@ -125,7 +118,6 @@ function CreateTest(){
                     <input onChange={(e)=>{setData((pre)=>{setError({test:'',que:''}); return{...pre,image:e.target.value}})}} value={data.image} className="p-2 border rounded shadow" type="text" id="img"/>
                     <label htmlFor="duration">Duration (in minutes)</label>
                     <input onChange={(e)=>{setData((pre)=>{setError({test:'',que:''}); return{...pre,duration:e.target.value}})}} value={data.duration} className="p-2 border rounded shadow" type="text" id="duration" />
-                    <label htmlFor="diffi">Difficulty</label>
                     <select className="p-2 rounded border shadow" name="difficulty" id="diffi" onChange={(e)=>{setData((pre)=>{setError({test:'',que:''}); return {...pre,difficulty:e.target.value}})}}>
                        <option value="easy">easy</option>
                        <option value="medium">medium</option>
@@ -153,8 +145,8 @@ function CreateTest(){
                              <div className="border shadow-lg rounded p-2 lg:p-5 cursor-pointer">
                                 <p className="text-center font-semibold mb-6 text-lg">Questions</p>
                                 {data.questions.map((ques,idx)=>{
-                                    return <div key={idx} className="flex justify-between lg:gap-5 my-1 lg:w-[60%]">
-                                        <p className="py-1 px-2 font-semibold">Q.{idx+1} {ques.question.slice(0,15)+"..."}</p>
+                                    return <div className="flex justify-between lg:gap-5 my-1 lg:w-[60%]">
+                                        <p className="py-1 px-2 font-semibold" key={idx}>Q.{idx+1} {ques.question.slice(0,15)+"..."}</p>
                                         <button onClick={(e)=>{e.preventDefault(); return handelDelete(idx); }} className="p-1 lg:px-4 bg-[#01b4dc] font-semibold text-white rounded w-[5rem]">delete</button>
                                     </div>
                                 })}
@@ -164,10 +156,10 @@ function CreateTest(){
                              <button onClick={handelSubmit} className="p-1 px-4 font-semibold text-white bg-[#01b4dc] rounded w-[5rem]">Save</button>
                               <button onClick={()=>navigate('/admin')} className="p-1 px-4 font-semibold border border-[#01b4dc] rounded w-[5rem]">cancel</button>
                              </div>
-               </form>
+                                   </form>
           </div>
 
     </>
     )
 }
-export default CreateTest;
+export default UpdateTest;

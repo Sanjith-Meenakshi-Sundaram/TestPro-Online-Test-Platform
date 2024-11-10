@@ -1,25 +1,33 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useParams } from 'react-router-dom';
 import isTokenExpired from '../utils/isTokenExpired';
+import api from '../service/api';
 
-function Review({data}) {
+function Review() {
   const [currQuestionIndex,setCurrQuestion]= useState(0);
+  const [data,setData]=useState(null);
   const navigate=useNavigate();
+  const id=useParams().id;
 
   useEffect(()=>{
     if(!localStorage.getItem('token')||isTokenExpired(localStorage.getItem('token'))){
       navigate('/login');
       return;
     }
-  },[])
+
+    api.get(`./result/results/${id}`)
+      .then((res)=>setData(res.data.answers))
+      .catch((err)=>console.log(err));
+
+  },[]);
 
   const handelNext=(index)=>{
     setCurrQuestion(index);
   }
 
-  return(<>
-    <div className='bg-zinc-200 flex flex-col lg:flex-row gap-4 lg:gap-10 justify-center p-10 h-[100vh] items-center'>
+  return(data&&<>
+    <div className='bg-zinc-100 flex flex-col lg:flex-row gap-4 lg:gap-10 justify-center p-10 h-[100vh] items-center'>
      <div className='w-[100%] lg:w-[50%]' >
        <div className='py-5 h-[5rem]'>
           <h1 className='text-2xl'>Review Answers</h1>
@@ -49,6 +57,12 @@ function Review({data}) {
  
  </div>
        </div>
+
+          <div className='w-[100%] p-5 border-2 rounded shadow-lg mt-3'>
+               <p className='text-center text-lg bg-zinc-300 font-semibold'>Explanation</p>
+               <p className='mt-3'>{data[currQuestionIndex].explanation}</p>
+          </div>
+
      </div>
  
       
@@ -63,7 +77,7 @@ function Review({data}) {
              </div>
            )
          })
-       }
+        }
        </div>
  
  

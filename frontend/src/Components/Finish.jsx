@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import isTokenExpired from '../utils/isTokenExpired';
 
-function Finish({data}) {
+function Finish({data,id}) {
     
     const [score,setScore]=useState({
       marked:0,
@@ -32,7 +32,7 @@ function Finish({data}) {
 
   return (
     <>
-    <div className='w-[100%] h-[100vh] bg-[#F3F3F4] flex justify-center p-4 lg:p-10 overflow-auto'>
+    <div className='w-[100%] h-[100vh] fixed bg-[#F3F3F4] flex justify-center p-4 lg:pt-20 overflow-auto z-[150]'>
     <div  className='flex flex-col justify-center items-center w-[100%] sm:w-[90%] md:w-[80%]  lg:w-[55%] h-fit bg-white p-5 rounded-lg'>
         <div className='flex flex-col justify-center items-center'>
              <img className='rounded-full w-[10rem]' src="https://t3.ftcdn.net/jpg/01/57/86/44/360_F_157864480_TFm1nQsUI1o8VLKg6SK6yV9P6tsK4TXN.jpg" alt="" />
@@ -57,7 +57,7 @@ function Finish({data}) {
 
         <div className='flex justify-end items-center w-[100%] mt-5'>
 
-               <button className='px-4 py-2 rounded border-2 border-[#01b4dc] font-semibold mx-2'onClick={()=>{navigate('/review',{replace:true})}}>Review Your Answers</button>
+               <button className='px-4 py-2 rounded border-2 border-[#01b4dc] font-semibold mx-2'onClick={()=>{navigate(`/review/${id}`,{replace:true})}}>Review Your Answers</button>
                <button className='px-4 py-2 rounded bg-[#01b4dc] font-semibold text-zinc-100 mx-2' onClick={()=>{navigate('/home',{replace:true})}}>Explore More Tests</button>
 
         </div>

@@ -1,9 +1,7 @@
 import { useState, useRef, useEffect } from "react"
-import Finish from "./pages/Finish"
 import Navbar from "./Components/Navbar"
 import Home from "./pages/Home"
 import Test from "./pages/Test"
-import testdata from './data/testdata'
 import Footer from "./Components/Footer"
 import {Routes,Route, useNavigate} from "react-router-dom"
 import Login from "./pages/Login"
@@ -17,24 +15,12 @@ import ManageUser from "./pages/ManageUser"
 import CreateTest from "./pages/CreateTest"
 import Error from "./pages/Error"
 import isTokenExpired from "./utils/isTokenExpired"
+import UpdateTest from "./pages/UpdateTest"
 
 function App() {
 
-    const [data,setData]=useState([...testdata[0].questions]);
     const [isLogedIn,setisLogedIn]=useState(false);
-    const navigate=useNavigate();
-    const [testdetails,setDetails]=useState({
-      ques:0,
-      time:0,
-      category: "Tech",
-      title:""
-    });
     const [isTest,setisTest]=useState(false);
-
-    const startExam=(index)=>{
-      setData([...testdata[index-1].questions]);
-      navigate('/test');
-    }
 
     //controlling full screen in test
     if (!document.fullscreenEnabled) {
@@ -67,20 +53,20 @@ function App() {
        }
       <Routes>
         <Route path="/" element={<Landing />}/>
-        <Route path="/profile" element={<Profile testdata={testdata} startExam={startExam} testdetails={testdetails} setDetails={setDetails}/>}/>
-        <Route path="/home" element={<Home testdata={testdata} startExam={startExam} testdetails={testdetails} setDetails={setDetails}/>}/>
+        <Route path="/profile" element={<Profile/>}/>
+        <Route path="/home" element={<Home/>}/>
         <Route path="/admin" element={<Admin/>}>
               <Route path="" element={<ManageTest/>}/>
               <Route path="users" element={<ManageUser/>}/>
               <Route path="tests" element={<ManageTest/>}/>
               <Route path="create" element={<CreateTest/>}/>
+              <Route path="edit/:id" element={<UpdateTest/>}/>
 
         </Route>
         <Route path="/login" element={<Login setisLogedIn={setisLogedIn}/>}/>
         <Route path="/register" element={<Register setisLogedIn={setisLogedIn}/>}/>
-        <Route path="/test" element={<Test setisTest={setisTest} exitfull={handleExitFullscreen} fullscreen={handleFullscreen} data={data} setData={setData} testdetails={testdetails}/>}/>
-        <Route path="/result" element={<Finish data={data}/>}/>
-        <Route path="/review" element={<Review data={data}/>}/>
+        <Route path="/test/:id" element={<Test setisTest={setisTest} exitfull={handleExitFullscreen} fullscreen={handleFullscreen}/>}/>
+        <Route path="/review/:id" element={<Review />}/>
         <Route path="*" element={<Error code="404" msg="Page Not Found"/>}/>
 
       </Routes>

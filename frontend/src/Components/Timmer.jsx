@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-function Timmer({Finish,minuts}) {
+function Timmer({Finish,setcurrTime,minutes}) {
   const [time, setTime] = React.useState({
     hrs:0,
     mnt:0,
@@ -30,25 +30,24 @@ function Timmer({Finish,minuts}) {
         sec:time.sec-1
       }
     }
-      
     }
     );
+    setcurrTime((pre)=>pre+1);
   }
 
   useEffect(()=>{
     setTime(()=>{
       return {
-        hrs:Math.floor(minuts/60),
-        mnt:minuts-(Math.floor(minuts/60)*60),
+        hrs:Math.floor(minutes/60),
+        mnt:minutes-(Math.floor(minutes/60)*60),
         sec:0
       };
     })
+    console.log(`minutes: ${minutes}`);
      id= setInterval(increase,1000);
 
      return(()=>clearInterval(id));
   },[])
-
-
 
   return (
       <div className='flex justify-center items-center gap-4 p-0 lg:p-6'>
