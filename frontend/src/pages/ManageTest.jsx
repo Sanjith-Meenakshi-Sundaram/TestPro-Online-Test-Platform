@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import data from '../data/testdata'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import api from '../service/api'
+import Loader from '../Components/Loader'
 
 export const ManageTest = () => {
    const navigate=useNavigate();
+   const [isloader,setLoader]=useState(false);
    const [tests,setTest]=useState([]);
    useEffect(()=>{
+     setLoader(true);
      api.get('/test/tests')
      .then((res)=>{
        setTest(res.data);
+       setLoader(false);
      })
      .catch((error)=>{
       console.log(error);
@@ -21,14 +24,19 @@ export const ManageTest = () => {
    }
 
    function handelDelete(id){
+      setLoader(true);
       api.delete(`/test/delete/${id}`)
-      .then((res)=>setTest(res.data))
+      .then((res)=>{
+        setLoader(false);
+        setTest(res.data);
+      })
       .catch(((error)=>{
          console.log(error.message);
       }))
    }
 
   return (
+    isloader?<Loader/>:
     <div className='px-5 h-[90vh] overflow-y-auto'>
           <NavLink to="/admin/create" className='p-2 flex gap-4 text-lg border rounded mb-3 bg-blue-50'>
              <p>+</p>

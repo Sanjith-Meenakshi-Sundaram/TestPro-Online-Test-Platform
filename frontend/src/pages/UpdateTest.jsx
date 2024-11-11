@@ -1,21 +1,13 @@
 import { useState, useEffect } from "react";
 import api from "../service/api";
 import { useNavigate, useParams } from "react-router-dom";
+import Loader from "../Components/Loader";
 
 function UpdateTest(){
     const {id}=useParams();
     const navigate=useNavigate();
-    const [data,setData]=useState({
-        title:'',
-        category:'',
-        image:'',
-        difficulty:'easy',
-        duration: 25,
-        marksperquestion: 1,
-        incorectmarksperquestion: 0,
-        description:'',
-        questions:[]
-       });
+    const [data,setData]=useState(null);
+    const [isloader,setLoader]=useState(false);
     const [ques,setQue]=useState({
         question:'',
         correctOption:'',
@@ -38,7 +30,7 @@ function UpdateTest(){
     function handelSubmit(e){
       
            e.preventDefault();
-           console.log(data);
+           setLoader(true);
 
            if(data.title==''||data.category==''||data.image==''||data.description==''){
              setError((pre)=>{
@@ -53,18 +45,7 @@ function UpdateTest(){
 
           api.put(`/test/update/${data._id}`,data)
           .then((res)=>{
-              console.log(res.data);
-              setData({
-                title:'',
-                category:'',
-                image:'',
-                difficulty:'easy',
-                duration: 25,
-                marksperquestion:1,
-                incorectmarksperquestion: 0,
-                description:'',
-                questions:[]
-               });
+              setLoader(false);
               navigate('/admin/tests');
           })
           .catch((error)=>{
@@ -105,8 +86,9 @@ function UpdateTest(){
         setData(newdata);
     }
     return(
+      !(data&&!isloader)?<Loader/>:
     <>
-    
+          
           <div className="px-2 lg:px-5 h-[90vh] overflow-y-auto">
                <h1 className="p-2 border rounded mb-3 text-lg text-center font-semibold">Update Test</h1>
                <form className="border shadow-lg rounded p-5 lg:px-20 flex flex-col gap-4 cursor-pointer">

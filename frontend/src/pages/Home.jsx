@@ -7,6 +7,7 @@ import Filters from '../Components/Filters';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faFilter} from '@fortawesome/free-solid-svg-icons'
 import api  from '../service/api';
+import Loader from '../Components/Loader';
 
 function Home() {
    const nevigate=useNavigate();
@@ -29,10 +30,11 @@ function Home() {
                 <FontAwesomeIcon icon={faFilter} style={{color:"#01b4dc"}} />
                 <p className='font-semibold'>Filters</p>
           </button>
-          <div className={`lg:block absolute lg:relative lg:w-[25%] z-[80] ${filter?"block w-[100%]":"hidden"}`}>
+          <div className={`lg:block absolute lg:static lg:w-[25%] z-[80] ${filter?"block w-[100%]":"hidden"}`}>
             <Filters setFilter={setFilter}/>
           </div>  
           <div className="w-[100%] lg:w-[73%] h-[100%] p-2 lg:p-10 pt-0 mb-3 flex justify-center rounded-lg bg-white shadow-inner">
+              {testdata.length==0?<Loader/>:
               <div className='w-[100%] pt-5 lg:pt-10 grid grid-cols-2 mb-8 lg:mb-0 sm:grid-cols-3 md:grid-cols-4 gap-3 lg:gap-5 overflow-auto'>
                   {
                     testdata.map((test,index)=>{
@@ -40,6 +42,7 @@ function Home() {
                     })
                    }
               </div>
+             }
           </div>
     </div>
     </>

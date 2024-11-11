@@ -3,7 +3,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom'
 import ShowCard from '../Components/ShowCard';
 import image from '../assets/images/profile.png'
-import data from "../data/Examsdata";
+import data from "../data/showdata";
 
 function Landing(){
     return(
@@ -25,8 +25,8 @@ function Landing(){
                           <p className='mt-3 lg:mt-0 text-xl font-semibold text-center'>What are you looking for ?</p>
                           <div className='p-2 lg:p-10 flex flex-wrap justify-center gap-2 lg:gap-4'>
                               {
-                                data.map((exam,idx)=>{
-                                    return <ShowCard key={idx} exam={exam}/>
+                                data.map((topic,idx)=>{
+                                    return <ShowCard key={idx} topic={topic}/>
                                 })
                               }
                           </div>

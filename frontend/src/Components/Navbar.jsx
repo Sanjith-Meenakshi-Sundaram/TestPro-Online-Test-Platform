@@ -36,7 +36,6 @@ function Navbar({isLogedIn,setisLogedIn}) {
                       </NavLink>
                         <div className='flex gap-4 pt-2 hidden lg:inline'>
                              <NavLink to="/home" className={`hover:text-[#01b4dc] ps-4 p-2 text-bottom border-b-2 border-white invisible lg:visible`}>Home</NavLink>
-                             <NavLink to="/exams" className={`hover:text-[#01b4dc] p-2 border-b-2 border-white invisible lg:visible ${!curruser?"hidden":""}`}>Exams</NavLink>
                              <NavLink to="/home" className={`hover:text-[#01b4dc] p-2 border-b-2 border-white invisible lg:visible`}>Tests</NavLink>
                              <NavLink to="/admin" className={`hover:text-[#01b4dc] p-2 border-b-2 border-white invisible lg:visible ${!curruser||curruser.role=="student"?"hidden":""}`}>{curruser?curruser.role=="admin"?"Admin":"Teacher":""}</NavLink>
                         </div>
@@ -65,7 +64,7 @@ function Navbar({isLogedIn,setisLogedIn}) {
        <ul className='w-[100%] flex flex-col gap-5 text-sm'>
           <NavLink to="/home" className={`${!curruser?"hidden":""}`}><li className='border-b pb-1'><FontAwesomeIcon icon={faHouse} /><span className='ms-2'>Home</span></li></NavLink>
           <NavLink to="/profile" className={`${!curruser?"hidden":""}`}><li className='border-b pb-1'><FontAwesomeIcon icon={faUser} /><span className='ms-2'>Profile</span></li></NavLink>
-          <NavLink to="/Exams"><li className='border-b pb-1'><FontAwesomeIcon icon={faBookOpen} /><span className='ms-2'>Exams</span></li></NavLink>
+          {/* <NavLink to="/Exams"><li className='border-b pb-1'><FontAwesomeIcon icon={faBookOpen} /><span className='ms-2'>Exams</span></li></NavLink> */}
           <NavLink to="/home"><li className='border-b pb-1'><FontAwesomeIcon icon={faFile} /><span className='ms-2'>Tests</span></li></NavLink>
           <NavLink to="/admin" className={`${!curruser||curruser.role=="student"?"hidden":""}`}><li className='border-b pb-1'><FontAwesomeIcon icon={faUserTie} /><span className='ms-2'>{curruser?curruser.role=="admin"?"Admin":"Teacher":""}</span></li></NavLink>
           <NavLink to="/register" className={`${curruser?"hidden":""}`}><li className='border-b pb-1'><FontAwesomeIcon icon={faArrowRightToBracket} /><span className='ms-2'>Signup</span></li></NavLink>

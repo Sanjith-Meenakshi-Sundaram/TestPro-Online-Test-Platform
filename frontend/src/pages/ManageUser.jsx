@@ -1,20 +1,28 @@
 import React,{useEffect,useState} from 'react';
 import api from '../service/api';
 import { useOutletContext } from 'react-router-dom';
+import Loader from '../Components/Loader';
 function ManageUser(){
    const {curruser} = useOutletContext();
-   const [users,setUsers]=useState([]);
+   const [users,setUsers]=useState(null);
+   const [isloader,setLoader]=useState(false);
    useEffect(()=>{
       api.get('/user/users')
-      .then((res)=>setUsers(res.data))
+      .then((res)=>{
+         setUsers(res.data);
+      })
       .catch((error)=>{
          console.log("error");
       })
-   },[users]);
+   },[isloader]);
    
    function handelDelete(id){
+      setLoader(true);
       api.delete(`/user/users/${id}`)
-      .then((res)=>setUsers(res.data))
+      .then((res)=>{
+         setUsers(res.data);
+         setLoader(false);
+      })
       .catch((error)=>{
          console.log(error.message);
       })
@@ -22,6 +30,7 @@ function ManageUser(){
 
    function handelPromote(index,user){
       if(user.role=='admin') return;
+      setLoader(true);
       user.role=user.role=='student'?'teacher':'admin';
       api.put(`/user/users/${user._id}`,user)
       .then((res)=>{
@@ -31,6 +40,7 @@ function ManageUser(){
             newusers[index]=newuser;
             return newusers;
          })
+         setLoader(false);
       })
       .catch((error)=>{
          console.log(error.message);
@@ -39,6 +49,7 @@ function ManageUser(){
 
    function handelDemote(index,user){
       if(user.role=='student') return;
+      setLoader(true);
       user.role=user.role=='teacher'?'student':'teacher';
       api.put(`/user/users/${user._id}`,user)
       .then((res)=>{
@@ -48,6 +59,7 @@ function ManageUser(){
             newusers[index]=newuser;
             return newusers;
          })
+         setLoader(false);
       })
       .catch((error)=>{
          console.log(error.message);
@@ -55,6 +67,7 @@ function ManageUser(){
    }
 
     return(
+      isloader||!users?<Loader/>:
       <div className='px-5 h-[90vh] overflow-y-auto'>
       <p className='p-2 text-lg text-center border rounded mb-3 bg-blue-50'>
          Manage Users

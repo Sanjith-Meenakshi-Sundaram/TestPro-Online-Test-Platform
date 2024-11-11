@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useNavigate,useParams } from 'react-router-dom';
 import isTokenExpired from '../utils/isTokenExpired';
 import api from '../service/api';
+import Loader from '../Components/Loader';
 
 function Review() {
   const [currQuestionIndex,setCurrQuestion]= useState(0);
@@ -26,7 +27,7 @@ function Review() {
     setCurrQuestion(index);
   }
 
-  return(data&&<>
+  return(!data?<Loader/>:<>
     <div className='bg-zinc-100 flex flex-col lg:flex-row gap-4 lg:gap-10 justify-center p-10 h-[100vh] items-center'>
      <div className='w-[100%] lg:w-[50%]' >
        <div className='py-5 h-[5rem]'>

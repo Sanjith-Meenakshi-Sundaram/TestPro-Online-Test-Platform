@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import api from "../service/api";
 import { useNavigate } from "react-router-dom";
 import isTokenExpired from "../utils/isTokenExpired";
+import Loader from '../Components/Loader';
 
 function CreateTest(){
     const navigate=useNavigate();
+    const [isloader,setLoader]=useState(false);
     const [curruser,setCurruser]=useState({});
     useEffect(()=>{
       if(!localStorage.getItem('token')||isTokenExpired(localStorage.getItem('token')||!localStorage.getItem('user'))){
@@ -49,7 +51,7 @@ function CreateTest(){
              })
              return;
            }
-          
+          setLoader(true);
           if(data.image=='') delete data.image;
 
           api.post('/test/create',data)
@@ -69,6 +71,7 @@ function CreateTest(){
               curruser.tests.push(res.data._id);
               api.put(`/user/users/${curruser._id}`,curruser)
               .then((res)=>{
+                setLoader(false);
                 console.log('test created successfully');
               })
               .catch((error)=>console.log(error.message));
@@ -112,6 +115,7 @@ function CreateTest(){
         setData(newdata);
     }
     return(
+      isloader?<Loader/>:
     <>
     
           <div className="px-2 lg:px-5 h-[90vh] overflow-y-auto">

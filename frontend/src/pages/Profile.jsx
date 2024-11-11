@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import isTokenExpired from "../utils/isTokenExpired";
 import { useNavigate } from "react-router-dom";
 import api from '../service/api'
+import Loader from "../Components/Loader";
 function Profile(){
     const [showmore1,setState1]=useState(false);
     const [showmore2,setState2]=useState(false);
@@ -37,7 +38,8 @@ function Profile(){
     },[]);
     
  return(
-    curruser&&<>
+    !curruser?<Loader/>:
+    <>
     <div className="w-[100%] h-[100%] bg-[#F3F3F4] p-5 md:p-10 flex flex-col md:flex-row justify-between">
        <div className="w-[100%]  md:w-[25%] bg-white rounded-lg overflow-hidden">
              <div className="relative z-[50]">

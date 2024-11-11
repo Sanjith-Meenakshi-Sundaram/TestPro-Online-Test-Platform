@@ -6,6 +6,7 @@ import {faAngleLeft,faAngleRight,faCircleCheck, faBars,faClock} from '@fortaweso
 import isTokenExpired from '../utils/isTokenExpired';
 import api from '../service/api';
 import Finish from '../Components/Finish';
+import Loader from '../Components/Loader';
 
 export const Test = ({setisTest,exitfull,fullscreen}) => {
   
@@ -21,6 +22,7 @@ export const Test = ({setisTest,exitfull,fullscreen}) => {
   const [testdetails,setTestdetails]=useState(null);
   const [currtime,setcurrTime]=useState(0);
   const [isFinish,setIsFinish]=useState(false);
+  const [isloader,setLoader]=useState(false);
 
   const id=useParams().id;
 
@@ -114,6 +116,8 @@ export const Test = ({setisTest,exitfull,fullscreen}) => {
       timeTaken: currtime,
     }
 
+    setLoader(true);
+
     currresult.answers=data;
     api.post('/result/saveresult',currresult)
     .then((res)=>{
@@ -123,6 +127,7 @@ export const Test = ({setisTest,exitfull,fullscreen}) => {
       .then((res)=>{
         console.log('test result saved successfully');
         localStorage.setItem('user',JSON.stringify(curruser));
+        setLoader(false);
       })
       .catch((error)=>console.log(error.message));
       setResult(res.data);
@@ -131,7 +136,7 @@ export const Test = ({setisTest,exitfull,fullscreen}) => {
     .catch((error)=>console.log(error.message));
   }
 
-  return (testdetails&&data&&<>
+  return (!testdetails||!(data&&!isloader)?<Loader/>:<>
    {isFinish&&result&&<Finish data={data} id={result._id}/>}
    <div className='h-[100vh] bg-zinc-100 flex flex-col lg:flex-row'>
     <div className='w-[100%] lg:w-[75%] h-[100%] pb-5 flex flex-col justify-between overflow-auto' >
