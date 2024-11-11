@@ -7,9 +7,10 @@ export const ManageTest = () => {
    const navigate=useNavigate();
    const [isloader,setLoader]=useState(false);
    const [tests,setTest]=useState([]);
-   useEffect(()=>{
+   function fatch(){
+    const curruser=JSON.parse(localStorage.getItem('user'));
      setLoader(true);
-     api.get('/test/tests')
+     api.get(`/test/tests?createdBy=${curruser.role=="teacher"?curruser._id:""}`)
      .then((res)=>{
        setTest(res.data);
        setLoader(false);
@@ -17,18 +18,20 @@ export const ManageTest = () => {
      .catch((error)=>{
       console.log(error);
      })
+   }
+   useEffect(()=>{
+    fatch();
    },[]);
 
    function handelEdit(id){
        navigate(`/admin/edit/${id}`);
    }
 
-   function handelDelete(id){
+   async function handelDelete(id){
       setLoader(true);
-      api.delete(`/test/delete/${id}`)
+      await api.delete(`/test/delete/${id}`)
       .then((res)=>{
-        setLoader(false);
-        setTest(res.data);
+        fatch();
       })
       .catch(((error)=>{
          console.log(error.message);

@@ -158,7 +158,7 @@ export const Test = ({setisTest,exitfull,fullscreen}) => {
       </div>
       <div className='sticky top-0 bg-zinc-100 border-b-2 flex justify-around lg:hidden'>
           <h1 className='text-center p-2 text-lg font-500 font-semibold'><FontAwesomeIcon icon={faClock}/> Time Left</h1>
-          {!isFinish&&<Timmer Finish={handelFinish} setcurrTime={setcurrTime} minuts={Math.floor(data.length)}/>}
+          {!isFinish&&<Timmer Finish={handelFinish} setcurrTime={setcurrTime} minuts={testdetails.duration}/>}
         </div>
 <ul className='pl-5 pr-8 py-2 flex flex-col justify-center'>
 <h1 className='lg:text-xl pb-3 mb-3 border-b-2 border-zinc-500 font-semibold'>{`Question No. ${currQuestionIndex+1}`}</h1>

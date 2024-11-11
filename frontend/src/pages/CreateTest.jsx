@@ -40,7 +40,6 @@ function CreateTest(){
     function handelSubmit(e){
       
            e.preventDefault();
-           console.log(data);
 
            if(data.title==''||data.category==''||data.description==''){
              setError((pre)=>{
@@ -56,7 +55,6 @@ function CreateTest(){
 
           api.post('/test/create',data)
           .then((res)=>{
-              console.log(res.data);
               setData({
                 title:'',
                 category:'',

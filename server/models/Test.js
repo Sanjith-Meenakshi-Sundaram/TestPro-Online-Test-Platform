@@ -15,8 +15,8 @@ const testSchema = new mongoose.Schema({
   },
   difficulty: {
     type: String,
-    enum: ["eassy","medium","hard"],
-    default: "eassy",
+    enum: ["easy","medium","hard"],
+    default: "easy",
     required: true
   },
   image:{
