@@ -11,7 +11,7 @@ import Loader from '../Components/Loader';
 export const Test = ({setisTest,exitfull,fullscreen}) => {
   
   const [currQuestionIndex,setCurrQuestion]= useState(0);
-  const [score,setScore]=useState(0);
+  let score=0;
   //for phone questions view
   const [sideQue,setSideQue]=useState(false);
 
@@ -73,7 +73,10 @@ export const Test = ({setisTest,exitfull,fullscreen}) => {
 
   const handelNext=(e,index)=>{
     if(data[currQuestionIndex].correctOption===data[currQuestionIndex].selectedOption){
-        setScore((pre)=>pre+testdetails.marksperquestion);
+        score+=testdetails.marksperquestion;
+    }
+    else if(data[currQuestionIndex].selectedOption!=""){
+       score-=testdetails.incorectmarksperquestion;
     }
     handelVisited(currQuestionIndex);
     setCurrQuestion(index);
@@ -107,6 +110,14 @@ export const Test = ({setisTest,exitfull,fullscreen}) => {
 
   const handelFinish=()=>{
     console.log("submitted");
+
+    if(data[currQuestionIndex].correctOption===data[currQuestionIndex].selectedOption){
+      score+=testdetails.marksperquestion;
+      }
+      else if(data[currQuestionIndex].selectedOption!=""){
+        score-=testdetails.incorectmarksperquestion;
+       }
+      handelVisited(currQuestionIndex);
 
     const currresult={
       userId: curruser._id,
@@ -158,7 +169,7 @@ export const Test = ({setisTest,exitfull,fullscreen}) => {
       </div>
       <div className='sticky top-0 bg-zinc-100 border-b-2 flex justify-around lg:hidden'>
           <h1 className='text-center p-2 text-lg font-500 font-semibold'><FontAwesomeIcon icon={faClock}/> Time Left</h1>
-          {!isFinish&&<Timmer Finish={handelFinish} setcurrTime={setcurrTime} minuts={testdetails.duration}/>}
+          {!isFinish&&<Timmer Finish={handelFinish} setcurrTime={setcurrTime} minutes={testdetails.duration}/>}
         </div>
 <ul className='pl-5 pr-8 py-2 flex flex-col justify-center'>
 <h1 className='lg:text-xl pb-3 mb-3 border-b-2 border-zinc-500 font-semibold'>{`Question No. ${currQuestionIndex+1}`}</h1>
@@ -180,7 +191,7 @@ export const Test = ({setisTest,exitfull,fullscreen}) => {
    <div  className=' flex justify-end'>
          <button className={`px-2 py-2 text-xs lg:text-sm lg:px-4 rounded bg-zinc-700 font-semibold text-zinc-100 mx-2 ${currQuestionIndex==0?"hidden":""}`} onClick={(e)=>{handelNext(e,currQuestionIndex-1)}}><FontAwesomeIcon icon={faAngleLeft} /> Prev</button>
          <button className={`px-2 py-2 text-xs lg:text-sm lg:px-4 rounded bg-blue-600 font-semibold text-zinc-100 mx-2 ${currQuestionIndex==data.length-1?"hidden":""}`} onClick={(e)=>{handelNext(e,currQuestionIndex+1)}}>Save & Next <FontAwesomeIcon icon={faAngleRight} /></button>
-         <button className={`px-2 py-2 text-xs lg:text-sm lg:px-4 rounded bg-green-600 font-semibold text-zinc-100 mx-2 ${currQuestionIndex!=data.length-1?"hidden":""}`} onClick={()=>handelFinish()}>submit and finish</button>
+         <button className={`px-2 py-2 text-xs lg:text-sm lg:px-4 rounded bg-green-600 font-semibold text-zinc-100 mx-2 ${currQuestionIndex!=data.length-1?"hidden":""}`} onClick={()=>{handelFinish()}}>submit and finish</button>
          <button className={`px-2 py-2 text-xs lg:text-sm lg:px-4 rounded bg-red-600 font-semibold text-zinc-100 mx-2`} onClick={()=>handelFinish()}>Finish</button>
    </div>
 </div>
