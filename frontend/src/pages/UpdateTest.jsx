@@ -42,7 +42,7 @@ function UpdateTest(){
              return;
            }
 
-
+          console.log(data);
           api.put(`/test/update/${data._id}`,data)
           .then((res)=>{
               setLoader(false);
@@ -100,7 +100,7 @@ function UpdateTest(){
                     <input onChange={(e)=>{setData((pre)=>{setError({test:'',que:''}); return{...pre,image:e.target.value}})}} value={data.image} className="p-2 border rounded shadow" type="text" id="img"/>
                     <label htmlFor="duration">Duration (in minutes)</label>
                     <input onChange={(e)=>{setData((pre)=>{setError({test:'',que:''}); return{...pre,duration:e.target.value}})}} value={data.duration} className="p-2 border rounded shadow" type="text" id="duration" />
-                    <select className="p-2 rounded border shadow" name="difficulty" id="diffi" onChange={(e)=>{setData((pre)=>{setError({test:'',que:''}); return {...pre,difficulty:e.target.value}})}}>
+                    <select className="p-2 rounded border shadow" value={data.difficulty} name="difficulty" id="diffi" onChange={(e)=>{setData((pre)=>{setError({test:'',que:''}); return {...pre,difficulty:e.target.value}})}}>
                        <option value="easy">easy</option>
                        <option value="medium">medium</option>
                        <option value="hard">hard</option>
