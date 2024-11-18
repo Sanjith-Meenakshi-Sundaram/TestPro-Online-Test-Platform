@@ -11,7 +11,6 @@ import Loader from '../Components/Loader';
 export const Test = ({setisTest,exitfull,fullscreen}) => {
   
   const [currQuestionIndex,setCurrQuestion]= useState(0);
-  let score=0;
   //for phone questions view
   const [sideQue,setSideQue]=useState(false);
 
@@ -72,12 +71,6 @@ export const Test = ({setisTest,exitfull,fullscreen}) => {
   },[])
 
   const handelNext=(e,index)=>{
-    if(data[currQuestionIndex].correctOption===data[currQuestionIndex].selectedOption){
-        score+=testdetails.marksperquestion;
-    }
-    else if(data[currQuestionIndex].selectedOption!=""){
-       score-=testdetails.incorectmarksperquestion;
-    }
     handelVisited(currQuestionIndex);
     setCurrQuestion(index);
     setSideQue(false);
@@ -109,15 +102,19 @@ export const Test = ({setisTest,exitfull,fullscreen}) => {
   }
 
   const handelFinish=()=>{
-    console.log("submitted");
 
-    if(data[currQuestionIndex].correctOption===data[currQuestionIndex].selectedOption){
-      score+=testdetails.marksperquestion;
+    console.log("submitted");
+    handelVisited(currQuestionIndex);
+    let score = 0;
+    for(let Question of data){
+      if(Question.selectedOption===Question.correctOption){
+        score+=testdetails.marksperquestion;
       }
-      else if(data[currQuestionIndex].selectedOption!=""){
+      else if(Question.selectedOption!==""){
         score-=testdetails.incorectmarksperquestion;
-       }
-      handelVisited(currQuestionIndex);
+      }
+    }
+    console.log(score);
 
     const currresult={
       userId: curruser._id,
@@ -128,6 +125,7 @@ export const Test = ({setisTest,exitfull,fullscreen}) => {
     }
 
     setLoader(true);
+    console.log(score);
 
     currresult.answers=data;
     api.post('/result/saveresult',currresult)

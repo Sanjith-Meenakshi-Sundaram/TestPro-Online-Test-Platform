@@ -19,6 +19,7 @@ function Profile(){
          sum+=result.score;
          totel+=(result.testId.questions.length)*(result.testId.marksperquestion);
        });
+       console.log(sum,totel);
        if(totel==0)return 0;
        return Math.round(((sum/totel)*100)*100)/100;
 
