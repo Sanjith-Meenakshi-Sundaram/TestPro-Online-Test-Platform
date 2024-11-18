@@ -54,7 +54,7 @@ function CreateTest(){
           if(data.image=='') delete data.image;
 
           api.post('/test/create',data)
-          .then((res)=>{
+          .then((res1)=>{
               setData({
                 title:'',
                 category:'',
@@ -66,13 +66,18 @@ function CreateTest(){
                 description:'',
                 questions:[]
                });
-              curruser.tests.push(res.data._id);
-              api.put(`/user/users/${curruser._id}`,curruser)
-              .then((res)=>{
-                setLoader(false);
-                console.log('test created successfully');
-              })
-              .catch((error)=>console.log(error.message));
+               api.get(`/user/users/${curruser._id}`)
+               .then((res2)=>{
+                 let user=res2.data;
+                 user.tests.push(res1.data._id);
+                 api.put(`/user/users/${curruser._id}`,user)
+                 .then((res3)=>{
+                   setLoader(false);
+                   console.log('test created successfully');
+                 })
+                 .catch((error)=>console.log(error.message));
+               })
+               .catch((err)=>console.log(err.message));
               navigate('/admin/tests');
           })
           .catch((error)=>{

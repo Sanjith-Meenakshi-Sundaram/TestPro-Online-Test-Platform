@@ -131,17 +131,22 @@ export const Test = ({setisTest,exitfull,fullscreen}) => {
 
     currresult.answers=data;
     api.post('/result/saveresult',currresult)
-    .then((res)=>{
-      console.log(res.data);
-      curruser.results.push(res.data._id);
-      api.put(`/user/users/${curruser._id}`,curruser)
-      .then((res)=>{
+    .then((res1)=>{
+      let result=res1.data;
+      api.get(`/user/users/${curruser._id}`)
+      .then((res2)=>{
+        let user=res2.data;
+        user.results.push(result._id);
+        api.put(`/user/users/${curruser._id}`,user)
+        .then((res3)=>{
         console.log('test result saved successfully');
-        localStorage.setItem('user',JSON.stringify(curruser));
+        localStorage.setItem('user',JSON.stringify(user));
         setLoader(false);
       })
+      .catch((error)=>console.log(error.message))
+      })
       .catch((error)=>console.log(error.message));
-      setResult(res.data);
+      setResult(res1.data);
       setIsFinish(true);
     })
     .catch((error)=>console.log(error.message));

@@ -33,8 +33,14 @@ exports.getUsers=async (req,res)=>{
   res.send(users);
 };
 
+exports.getUser=async(req,res)=>{
+  const user = await User.findById(req.params.id);
+  res.send(user);
+}
+
 exports.getFulldetails=async (req,res)=>{
   const users = await User.findById(req.params.id).populate({path:'results', select:['score','timeTaken','takenAt'],populate:{path:'testId',select:['duration','title','questions','marksperquestion']}}).populate('tests');
+  console.log(users);
   res.send(users);
 };
 

@@ -1,4 +1,7 @@
  const Test = require('../models/Test');
+ const User = require('../models/User');
+ const Result = require('../models/Result');
+
 
  exports.createTest = async (req, res)=>{
      const test=new Test(req.body);
@@ -75,7 +78,20 @@ exports.updateTest = async (req, res)=>{
 
  exports.deleteTest = async (req, res)=>{
      try{
-        const test = await Test.findByIdAndDelete(req.params.id);
+        const test = await Test.findById(req.params.id);
+        const results= await Result.find({testId:test._id});
+        const user= await User.findById(test.createdBy);
+        const arr=user.tests.filter((testid)=>testid.toString()!==test._id.toString());
+        user.tests=arr;
+        await user.save();
+        for(let result of results){
+          const curruser=await User.findById(result.userId);
+          const userresults=curruser.results.filter((resultid)=>resultid.toString()!==result._id.toString());
+          curruser.results=userresults;
+          await curruser.save();
+        }
+        await Result.deleteMany({testId:test._id});
+        await Test.findByIdAndDelete(req.params.id);
         res.status(200).send("test deleted");
      }
      catch(error){
