@@ -7,7 +7,7 @@ function Profile_test_card({result}){
             <div>
                 <p className="text-lg font-semibold text-zinc-600">{result.testId.title}</p>
                 <p className="text-sm text-zinc-400">Complited on : {result.takenAt.slice(8,10)+"/"+result.takenAt.slice(5,7)+"/"+result.takenAt.slice(0,4)}</p>
-                <p className="text-sm text-zinc-400">Score: {result.score}</p>
+                <p className="text-sm text-zinc-400">Score: {result.score}/{(result.testId.questions.length)*(result.testId.marksperquestion)}</p>
                 <p className="text-sm text-zinc-400">Timetaken: {Math.floor(result.timeTaken/60)+"min "+(result.timeTaken-Math.floor(result.timeTaken/60)*60)+"sec"}</p>
                 <p className="text-sm text-zinc-400">Totel time: {result.testId.duration+"min"}</p>
             </div>

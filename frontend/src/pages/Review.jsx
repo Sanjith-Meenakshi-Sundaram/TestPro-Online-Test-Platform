@@ -28,7 +28,7 @@ function Review() {
   }
 
   return(!data?<Loader/>:<>
-    <div className='bg-zinc-100 flex flex-col lg:flex-row gap-4 lg:gap-10 justify-center p-10 h-[100vh] items-center'>
+    <div className='bg-zinc-100 flex flex-col lg:flex-row gap-4 lg:gap-10 justify-center p-10 items-center'>
      <div className='w-[100%] lg:w-[50%]' >
        <div className='py-5 h-[5rem]'>
           <h1 className='text-2xl'>Review Answers</h1>
@@ -67,7 +67,7 @@ function Review() {
      </div>
  
       
-    <div className= 'w-[100%] lg:w-[25%] border-2 rounded-xl bg-white h-[35rem] overflow-y-auto'>
+    <div className= 'w-[100%] lg:w-[25%] border-2 rounded-xl bg-white lg:h-[35rem] overflow-y-auto'>
          <h1 className='text-lg font-semibold text-center w-[100%] py-4'>Answer Status</h1>
          <div className='flex flex-wrap justify-center'>
        {
