@@ -3,7 +3,7 @@ import Navbar from "./Components/Navbar"
 import Home from "./pages/Home"
 import Test from "./pages/Test"
 import Footer from "./Components/Footer"
-import {Routes,Route, useNavigate} from "react-router-dom"
+import {Routes,Route, useNavigate, useLocation} from "react-router-dom"
 import Login from "./pages/Login"
 import Register from "./pages/Register"
 import Admin from "./pages/Admin"
@@ -21,6 +21,11 @@ function App() {
 
     const [isLogedIn,setisLogedIn]=useState(false);
     const [isTest,setisTest]=useState(false);
+    const {pathname}=useLocation();
+
+    useEffect(()=>{
+      window.scrollTo(0,0);
+    },[pathname])
 
     //controlling full screen in test
     if (!document.fullscreenEnabled) {

@@ -61,7 +61,7 @@ function Review() {
 
           <div className='w-[100%] p-5 border-2 rounded shadow-lg mt-3'>
                <p className='text-center text-lg bg-zinc-300 font-semibold'>Explanation</p>
-               <p className='mt-3'>{data[currQuestionIndex].explanation}</p>
+               <p className='whitespace-pre-wrap w-full'>{data[currQuestionIndex].explanation}</p>
           </div>
 
      </div>
