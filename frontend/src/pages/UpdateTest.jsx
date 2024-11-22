@@ -95,7 +95,24 @@ function UpdateTest(){
                     <label htmlFor="title">Title</label>
                     <input onChange={(e)=>{setData((pre)=>{setError({test:'',que:''}); return{...pre,title:e.target.value}})}} value={data.title} className="p-2 border rounded shadow" type="text" id="title" />
                     <label htmlFor="cat">Category</label>
-                    <input onChange={(e)=>{setData((pre)=>{setError({test:'',que:''}); return{...pre,category:e.target.value}})}} value={data.category} className="p-2 border rounded shadow" type="text" id="cat" />
+                    <select onChange={(e)=>{setData((pre)=>{setError({test:'',que:''}); return{...pre,category:e.target.value}})}} value={data.category} className="p-2 border rounded shadow" id="cat">
+                 <option value="">All categories</option>
+                 <optgroup label="Aptitude">
+                  <div className=""></div>    <option value="numerical">Numerical Ability</option>
+                     <option value="logical">Logical Reasoning</option>
+                     <option value="verbal">Verbal English</option>
+                </optgroup>
+                <optgroup label="Technical">
+                     <option value="programming">Programming Languages</option>
+                     <option value="development">Development</option>
+                     <option value="database">Database</option>
+                </optgroup>
+                <optgroup label="Computer Fundamentals">
+                     <option value="operating system">Operating Systems and Software</option>
+                     <option value="computer networking">Networking and Internet</option>
+                     <option value="dbms">Database Management Systems</option>
+                </optgroup>
+                    </select>
                     <label htmlFor="img">Image Url</label>
                     <input onChange={(e)=>{setData((pre)=>{setError({test:'',que:''}); return{...pre,image:e.target.value}})}} value={data.image} className="p-2 border rounded shadow" type="text" id="img"/>
                     <label htmlFor="duration">Duration (in minutes)</label>
