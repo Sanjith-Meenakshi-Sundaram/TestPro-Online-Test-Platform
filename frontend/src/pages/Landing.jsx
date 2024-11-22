@@ -26,7 +26,7 @@ function Landing(){
                           <div className='p-2 lg:p-10 flex flex-wrap justify-center gap-2 lg:gap-4'>
                               {
                                 data.map((topic,idx)=>{
-                                    return <ShowCard key={idx} topic={topic}/>
+                                    return <NavLink to='/home'><ShowCard key={idx} topic={topic}/></NavLink>
                                 })
                               }
                           </div>
